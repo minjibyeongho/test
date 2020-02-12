@@ -12,6 +12,7 @@
         <Label Content="Hello World" HorizontalAlignment="Left" Height="29" Margin="42,10,0,0" VerticalAlignment="Top" Width="275"/>
         <Label Content="Git Commit Test" HorizontalAlignment="Left" Height="32" Margin="42,312,0,0" VerticalAlignment="Top" Width="275"/>
         <Label Content="haha" HorizontalAlignment="Left" Margin="619,186,0,0" VerticalAlignment="Top"/>
+        <Button Content="커밋 테스트3" HorizontalAlignment="Left" Height="74" Margin="355,129,0,0" VerticalAlignment="Top" Width="128"/>
 
     </Grid>
 </Window>
