@@ -11,6 +11,7 @@
         <Button Content="버튼1" HorizontalAlignment="Left" Height="51" Margin="355,61,0,0" VerticalAlignment="Top" Width="128"/>
         <Label Content="Hello World" HorizontalAlignment="Left" Height="29" Margin="42,10,0,0" VerticalAlignment="Top" Width="275"/>
         <Label Content="Git Commit Test" HorizontalAlignment="Left" Height="32" Margin="42,312,0,0" VerticalAlignment="Top" Width="275"/>
+        <Label Content="haha" HorizontalAlignment="Left" Margin="619,186,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
