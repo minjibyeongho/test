@@ -21,13 +21,13 @@ namespace ILS_TEST_V1
         private void File_Test_Click(object sender, EventArgs e)
         {
             FileTest dlg = new FileTest();
-            dlg.ShowDialog();
+            dlg.Show();
         }
 
         private void ArrowCode_Test_Click(object sender, EventArgs e)
         {
             ArrowTest dlg = new ArrowTest();
-            dlg.ShowDialog();
+            dlg.Show();
         }
     }
 }
