@@ -1,10 +1,35 @@
-﻿2020.02.18
-디자인 폼 생성
+﻿2020.02.19
+1. 레이아웃 변경
+  ; autoSizeMode ->GrowandShrink 
+
+2. FormBorderstyle 변경
+  ; FixedSingle 로변경
+
+3. MaximaizeBox 및 MinimaizeBox 모두 Flase 로 변경
+
+4. MenuStrip 추가 
+ ; 정보
+   - 사용방법
+   - about 
+제목만 우선 등재
+
+5. 폼크기 
+300, 400
+
+6. 버튼크기 
+120 , 40
+
+7. 폼 백그라운드 변경
+ ; 매스코 로고 변경
+
+2020.02.18
+1. 디자인 폼 생성
  - Main 폼
  - File_Test
  - Arrow_Test
 
 이유 : 불필요한 폼 삭제 (로그인 화면 및 사용 하지 않는 폼 등)
 
-#추가 수정
+2. 추가 수정
 모달 버튼  -> 모달리스 버튼으로 수정함
+
