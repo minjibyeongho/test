@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileTest));
             this.txtFolderPath = new System.Windows.Forms.TextBox();
             this.btnFolderSelect = new System.Windows.Forms.Button();
             this.gridVerify = new System.Windows.Forms.DataGridView();
@@ -99,6 +100,7 @@
             this.Controls.Add(this.gridVerify);
             this.Controls.Add(this.btnFolderSelect);
             this.Controls.Add(this.txtFolderPath);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FileTest";
             this.Text = "파일 검증";
             ((System.ComponentModel.ISupportInitialize)(this.gridVerify)).EndInit();

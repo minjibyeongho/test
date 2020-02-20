@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ILS_TEST_V1.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,8 +27,11 @@ namespace ILS_TEST_V1
 
         private void ArrowCode_Test_Click(object sender, EventArgs e)
         {
-            ArrowTest dlg = new ArrowTest();
+            // ArrowTest dlg = new ArrowTest();
+            // dlg.Show();
+            PsdFileTest dlg = new PsdFileTest();
             dlg.Show();
+
         }
     }
 }
