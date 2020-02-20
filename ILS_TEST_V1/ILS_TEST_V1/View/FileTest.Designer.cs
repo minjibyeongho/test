@@ -38,6 +38,8 @@
             // 
             // txtFolderPath
             // 
+            this.txtFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFolderPath.Location = new System.Drawing.Point(12, 13);
             this.txtFolderPath.Name = "txtFolderPath";
             this.txtFolderPath.Size = new System.Drawing.Size(762, 21);
@@ -45,6 +47,7 @@
             // 
             // btnFolderSelect
             // 
+            this.btnFolderSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFolderSelect.Location = new System.Drawing.Point(780, 11);
             this.btnFolderSelect.Name = "btnFolderSelect";
             this.btnFolderSelect.Size = new System.Drawing.Size(103, 25);
@@ -55,6 +58,9 @@
             // 
             // gridVerify
             // 
+            this.gridVerify.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gridVerify.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gridVerify.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridVerify.Location = new System.Drawing.Point(12, 47);
@@ -65,6 +71,7 @@
             // 
             // btnListPrint
             // 
+            this.btnListPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnListPrint.Location = new System.Drawing.Point(13, 491);
             this.btnListPrint.Name = "btnListPrint";
             this.btnListPrint.Size = new System.Drawing.Size(123, 67);
@@ -74,6 +81,7 @@
             // 
             // btnVerify
             // 
+            this.btnVerify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerify.Location = new System.Drawing.Point(728, 491);
             this.btnVerify.Name = "btnVerify";
             this.btnVerify.Size = new System.Drawing.Size(155, 63);
