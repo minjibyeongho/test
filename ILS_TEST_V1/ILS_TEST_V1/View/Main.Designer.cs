@@ -84,13 +84,13 @@
             // 사용방법ToolStripMenuItem
             // 
             this.사용방법ToolStripMenuItem.Name = "사용방법ToolStripMenuItem";
-            this.사용방법ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.사용방법ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.사용방법ToolStripMenuItem.Text = "사용방법";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // Main
@@ -105,6 +105,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("한컴 윤체 B", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;

@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>masco4.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ntreev.Library.Psd, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c38f7f9c4e34740b, processorArchitecture=MSIL">
       <HintPath>..\packages\Ntreev.Library.Psd.1.1.18134.1310\lib\net45\Ntreev.Library.Psd.dll</HintPath>
@@ -102,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="masco4.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
