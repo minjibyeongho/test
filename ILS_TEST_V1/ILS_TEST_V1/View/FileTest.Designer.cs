@@ -66,6 +66,7 @@
             this.gridVerify.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridVerify.Location = new System.Drawing.Point(12, 47);
             this.gridVerify.Name = "gridVerify";
+            this.gridVerify.ReadOnly = true;
             this.gridVerify.RowTemplate.Height = 23;
             this.gridVerify.Size = new System.Drawing.Size(871, 427);
             this.gridVerify.TabIndex = 2;
