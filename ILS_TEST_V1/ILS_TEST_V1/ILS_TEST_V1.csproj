@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>masco4.ico</ApplicationIcon>
+    <ApplicationIcon>Masco_ICON2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ntreev.Library.Psd, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c38f7f9c4e34740b, processorArchitecture=MSIL">
@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="masco4.ico" />
+    <Content Include="Masco_ICON2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
