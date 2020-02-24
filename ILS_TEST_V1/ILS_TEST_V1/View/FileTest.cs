@@ -1,4 +1,5 @@
 ﻿using Ntreev.Library.Psd;
+using ILS_TEST_V1.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace ILS_TEST_V1
         public FileTest()
         {
             InitializeComponent();
+            //2020.02.24 gridVerify 더블클릭시 이벤트 생성 (박찬규)
+            gridVerify.CellMouseDoubleClick += gridVerify_CellMouseDoubleClick;
         }
 
 
@@ -24,6 +27,13 @@ namespace ILS_TEST_V1
         {
             //2020.02.21 메서드화 작업 코드수정 (박찬규)
             FileSearch();
+        }
+
+        //2020.02.24 gridVerify 더블클릭시 PsdFileTest 다이얼로그 발생 (박찬규)
+        void gridVerify_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            PsdFileTest dlg = new PsdFileTest();
+            dlg.Show();
         }
 
         private void FileSearch()
