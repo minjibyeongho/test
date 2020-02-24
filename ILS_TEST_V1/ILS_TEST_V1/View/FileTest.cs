@@ -32,9 +32,20 @@ namespace ILS_TEST_V1
         //2020.02.24 gridVerify 더블클릭시 PsdFileTest 다이얼로그 발생 (박찬규)
         void gridVerify_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            PsdFileTest dlg = new PsdFileTest();
+            
+            int rowIndex = gridVerify.CurrentRow.Index;
+            Console.WriteLine(rowIndex);
+            var filePath = gridVerify.Rows[rowIndex].Cells[1].Value.ToString();
+            Console.WriteLine(filePath);
+            PsdFileTest dlg = new PsdFileTest(filePath);
             dlg.Show();
         }
+
+        private void gridVerify_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
 
         private void FileSearch()
         {
@@ -90,6 +101,7 @@ namespace ILS_TEST_V1
             //각 열의 데이터에 맞게 자동으로 사이즈 조절 기능 추가 (박찬규)
             gridVerify.AutoResizeColumns();
         }
-      
+
+       
     }
 }

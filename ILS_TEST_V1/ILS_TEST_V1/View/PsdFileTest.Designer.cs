@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PsdFileTest));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.filePath = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -69,14 +69,16 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // filePath
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.filePath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(21, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1018, 21);
-            this.textBox1.TabIndex = 0;
+            this.filePath.Location = new System.Drawing.Point(21, 20);
+            this.filePath.Name = "filePath";
+            this.filePath.ReadOnly = true;
+            this.filePath.Size = new System.Drawing.Size(1018, 21);
+            this.filePath.TabIndex = 0;
+            this.filePath.TextChanged += new System.EventHandler(this.filePath_TextChanged);
             // 
             // button1
             // 
@@ -93,7 +95,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.filePath);
             this.groupBox1.Location = new System.Drawing.Point(29, 10);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1163, 60);
@@ -160,7 +162,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(650, 30);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 14);
+            this.label7.Size = new System.Drawing.Size(37, 12);
             this.label7.TabIndex = 9;
             this.label7.Text = "Depth";
             // 
@@ -404,7 +406,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox filePath;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
