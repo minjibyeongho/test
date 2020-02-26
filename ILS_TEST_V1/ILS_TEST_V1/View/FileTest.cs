@@ -56,7 +56,7 @@ namespace ILS_TEST_V1
             {
                 return;
             }
-
+            
             // 선택한 폴더명 (최정웅)
             txtFolderPath.Text = fbd.SelectedPath;
 
@@ -93,8 +93,8 @@ namespace ILS_TEST_V1
             {
                 ++Index;
                 var doc = PsdDocument.Create(file);
-
-                gridVerify.Rows.Add(Index, file);
+                var ILStype = GetILSType(file);
+                gridVerify.Rows.Add(Index, file,ILStype);
             }
             #endregion
 
@@ -102,6 +102,78 @@ namespace ILS_TEST_V1
             gridVerify.AutoResizeColumns();
         }
 
+
+        // 2020.02.26 민병호 ILSType 비교 로직 작성
+        /*
+         ****** 참고자료 ******
+            ################### ILSType 정리 ####################
+            일반교차로             NC                        KRCM
+            JC                     JC                        KRJM
+            도시고속               CE                        90
+            ETC                    ET                        KREI
+            모식도()               MimeticDiagram            8
+            3D 교차로              CrossRoadPoint3D          8
+            휴게소 요약맵(맵피)    RestAreaSummaryMap_Mapy   ?
+            휴게소 요약맵(지니)    RestAreaSummaryMap_Gini   ?
+            ######################################################
+         */
+        private string GetILSType(string file)
+        {
+            // file은 현재 filepath를 의미
+            // C: \Users\User\Desktop\LTS_Confirm\ILS샘플\사인보드\사인보드 + 유도선\KRCM12B30266E0BE4C0802.PSD
+
+            var file_info = new FileInfo(file);
+            var fileName = file_info.Name;
+            // fileName
+            // KRCM12B30266E0BE4C0802.PSD
+            
+            //비교 로직
+            // startwith(String, StringComparison) : 비교할 문자열, 비교하는 방법 열거형(enum)
+            // StringComparison : https://docs.microsoft.com/ko-kr/dotnet/api/system.stringcomparison?view=netframework-4.8
+            // 이 로직은 결국 filename을 가져와서 파일이름을 비교( 파일명 앞부분이 코드 ) 하여 ILSType을 지정하게끔 한다
+            if (fileName.StartsWith(ILSType.FilePrefix1_NC, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return ILSType.Code1_NC;
+            }
+            if (fileName.StartsWith(ILSType.FilePrefix2_JC, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return ILSType.Code2_JC;
+            }
+            if (fileName.StartsWith(ILSType.FilePrefix3_CE, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return ILSType.Code3_CE;
+            }
+            if (fileName.StartsWith(ILSType.FilePrefix4_ET, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return ILSType.Code4_ET;
+            }
+            else if (fileName.StartsWith("8"))  //모식도, 3D 교차점
+            {
+                // 모식도, 3D 교차점은 파일명으로 비교 기준을 정할 수 없어서 안에 파고들어서 첫번째 layer의 이름으로 비교한다.
+                var document = PsdDocument.Create(file);
+
+                var totalLayerList = document.Childs.Reverse();
+                var fisrtLayer = totalLayerList.FirstOrDefault();
+                var firstChild = fisrtLayer.Childs.Reverse().FirstOrDefault();
+                if (firstChild.Name.StartsWith("Arrow_"))
+                    return ILSType.Code5_MimeticDiagram;
+                else if (firstChild.Name.EndsWith("_AI"))
+                    return ILSType.Code6_CrossRoadPoint3D;
+            }
+            else
+            {
+                // 휴게소요약 mapy와 gini의 경우도 마찬가지로 파일명으로 비교 불가
+                // 파고들어서 첫번째 Layer의 mapy(Title), gini(Title_set)으로 비교 하여 구분
+                var document = PsdDocument.Create(file);
+                var totalLayerList = document.Childs.Reverse();
+                var fisrtLayer = totalLayerList.FirstOrDefault();
+                if (fisrtLayer.Name.Equals("Title"))
+                    return ILSType.Code7_RestAreaSummaryMap_Mapy;
+                else if (fisrtLayer.Name.Equals("Title_set"))
+                    return ILSType.Code8_RestAreaSummaryMap_Gini;
+            }
+            return null;
+        }
        
     }
 }
