@@ -41,15 +41,15 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.FileNameBox = new System.Windows.Forms.TextBox();
+            this.FileExtensionName = new System.Windows.Forms.TextBox();
+            this.FileWidth = new System.Windows.Forms.TextBox();
+            this.FileColorMode = new System.Windows.Forms.TextBox();
+            this.FileHeight = new System.Windows.Forms.TextBox();
+            this.FileChannelCount = new System.Windows.Forms.TextBox();
+            this.FileDepth = new System.Windows.Forms.TextBox();
+            this.FileChannelType = new System.Windows.Forms.TextBox();
+            this.FilePixel = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -186,68 +186,77 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "Pixel";
             // 
-            // textBox2
+            // FileNameBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(80, 26);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(111, 21);
-            this.textBox2.TabIndex = 12;
+            this.FileNameBox.Location = new System.Drawing.Point(80, 26);
+            this.FileNameBox.Name = "FileNameBox";
+            this.FileNameBox.ReadOnly = true;
+            this.FileNameBox.Size = new System.Drawing.Size(111, 21);
+            this.FileNameBox.TabIndex = 12;
             // 
-            // textBox3
+            // FileExtensionName
             // 
-            this.textBox3.Location = new System.Drawing.Point(80, 54);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(111, 21);
-            this.textBox3.TabIndex = 13;
+            this.FileExtensionName.Location = new System.Drawing.Point(80, 54);
+            this.FileExtensionName.Name = "FileExtensionName";
+            this.FileExtensionName.ReadOnly = true;
+            this.FileExtensionName.Size = new System.Drawing.Size(111, 21);
+            this.FileExtensionName.TabIndex = 13;
             // 
-            // textBox4
+            // FileWidth
             // 
-            this.textBox4.Location = new System.Drawing.Point(304, 27);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(111, 21);
-            this.textBox4.TabIndex = 14;
+            this.FileWidth.Location = new System.Drawing.Point(304, 27);
+            this.FileWidth.Name = "FileWidth";
+            this.FileWidth.ReadOnly = true;
+            this.FileWidth.Size = new System.Drawing.Size(111, 21);
+            this.FileWidth.TabIndex = 14;
             // 
-            // textBox5
+            // FileColorMode
             // 
-            this.textBox5.Location = new System.Drawing.Point(304, 54);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(111, 21);
-            this.textBox5.TabIndex = 15;
+            this.FileColorMode.Location = new System.Drawing.Point(304, 54);
+            this.FileColorMode.Name = "FileColorMode";
+            this.FileColorMode.ReadOnly = true;
+            this.FileColorMode.Size = new System.Drawing.Size(111, 21);
+            this.FileColorMode.TabIndex = 15;
             // 
-            // textBox6
+            // FileHeight
             // 
-            this.textBox6.Location = new System.Drawing.Point(502, 27);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(111, 21);
-            this.textBox6.TabIndex = 16;
+            this.FileHeight.Location = new System.Drawing.Point(502, 27);
+            this.FileHeight.Name = "FileHeight";
+            this.FileHeight.ReadOnly = true;
+            this.FileHeight.Size = new System.Drawing.Size(111, 21);
+            this.FileHeight.TabIndex = 16;
             // 
-            // textBox7
+            // FileChannelCount
             // 
-            this.textBox7.Location = new System.Drawing.Point(502, 54);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(111, 21);
-            this.textBox7.TabIndex = 17;
+            this.FileChannelCount.Location = new System.Drawing.Point(502, 54);
+            this.FileChannelCount.Name = "FileChannelCount";
+            this.FileChannelCount.ReadOnly = true;
+            this.FileChannelCount.Size = new System.Drawing.Size(111, 21);
+            this.FileChannelCount.TabIndex = 17;
             // 
-            // textBox8
+            // FileDepth
             // 
-            this.textBox8.Location = new System.Drawing.Point(706, 26);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(111, 21);
-            this.textBox8.TabIndex = 18;
+            this.FileDepth.Location = new System.Drawing.Point(706, 26);
+            this.FileDepth.Name = "FileDepth";
+            this.FileDepth.ReadOnly = true;
+            this.FileDepth.Size = new System.Drawing.Size(111, 21);
+            this.FileDepth.TabIndex = 18;
             // 
-            // textBox9
+            // FileChannelType
             // 
-            this.textBox9.Location = new System.Drawing.Point(706, 58);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(284, 21);
-            this.textBox9.TabIndex = 19;
+            this.FileChannelType.Location = new System.Drawing.Point(706, 58);
+            this.FileChannelType.Name = "FileChannelType";
+            this.FileChannelType.ReadOnly = true;
+            this.FileChannelType.Size = new System.Drawing.Size(284, 21);
+            this.FileChannelType.TabIndex = 19;
             // 
-            // textBox10
+            // FilePixel
             // 
-            this.textBox10.Location = new System.Drawing.Point(880, 27);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(111, 21);
-            this.textBox10.TabIndex = 20;
+            this.FilePixel.Location = new System.Drawing.Point(880, 27);
+            this.FilePixel.Name = "FilePixel";
+            this.FilePixel.ReadOnly = true;
+            this.FilePixel.Size = new System.Drawing.Size(111, 21);
+            this.FilePixel.TabIndex = 20;
             // 
             // button2
             // 
@@ -353,15 +362,15 @@
             this.groupBox2.Controls.Add(this.propertyGrid1);
             this.groupBox2.Controls.Add(this.button3);
             this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.textBox10);
-            this.groupBox2.Controls.Add(this.textBox9);
-            this.groupBox2.Controls.Add(this.textBox8);
-            this.groupBox2.Controls.Add(this.textBox7);
-            this.groupBox2.Controls.Add(this.textBox6);
-            this.groupBox2.Controls.Add(this.textBox5);
-            this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.FilePixel);
+            this.groupBox2.Controls.Add(this.FileChannelType);
+            this.groupBox2.Controls.Add(this.FileDepth);
+            this.groupBox2.Controls.Add(this.FileChannelCount);
+            this.groupBox2.Controls.Add(this.FileHeight);
+            this.groupBox2.Controls.Add(this.FileColorMode);
+            this.groupBox2.Controls.Add(this.FileWidth);
+            this.groupBox2.Controls.Add(this.FileExtensionName);
+            this.groupBox2.Controls.Add(this.FileNameBox);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label7);
@@ -418,15 +427,15 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.TextBox FileNameBox;
+        private System.Windows.Forms.TextBox FileExtensionName;
+        private System.Windows.Forms.TextBox FileWidth;
+        private System.Windows.Forms.TextBox FileColorMode;
+        private System.Windows.Forms.TextBox FileHeight;
+        private System.Windows.Forms.TextBox FileChannelCount;
+        private System.Windows.Forms.TextBox FileDepth;
+        private System.Windows.Forms.TextBox FileChannelType;
+        private System.Windows.Forms.TextBox FilePixel;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView dataGridView2;
