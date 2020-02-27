@@ -43,20 +43,44 @@ namespace ILS_TEST_V1.View
             // 각자 구현해보고( 공통 util로 만드는 작업 )
             // PSD Library 활용
 
-            
-            var doc = PsdDocument.Create(filePath.Text);
+
+
+            //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
+            FileInformaion(filePath.Text);
+
+        }
+
+        //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
+        private void FileInformaion (string x)
+        {
+            var doc = PsdDocument.Create(x);
+            var imageSource = doc as Ntreev.Library.Psd.IImageSource;
+
+            String TypeTemp = null;
+            String TypeTemp1 = null;
 
             //2020.02.27  파일 정보 텍스트 박스 값 입력
-            FileNameBox.Text = Path.GetFileNameWithoutExtension(filePath.Text);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
-            FileExtensionName.Text = Path.GetExtension(filePath.Text);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
-            FileHeight.Text = doc.Height.ToString(); 
+            FileNameBox.Text = Path.GetFileNameWithoutExtension(x);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
+            FileExtensionName.Text = Path.GetExtension(x);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
+            FileHeight.Text = doc.Height.ToString();
             FileWidth.Text = doc.Width.ToString();
             FileDepth.Text = doc.Depth.ToString();
             FileColorMode.Text = doc.FileHeaderSection.ColorMode.ToString();
             FileDepth.Text = doc.FileHeaderSection.Depth.ToString();
-            FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();
-         
+            FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();                     
 
+
+            //2020.02.27 채널 개수에 따른 채널 타입 추출 (박찬규)
+            for (int i = 0; i < doc.FileHeaderSection.NumberOfChannels; i++)
+            {
+                if (TypeTemp != null)
+                {
+                    TypeTemp += "/";
+                }
+                TypeTemp1 = imageSource.Channels[i].Type.ToString();
+                TypeTemp += TypeTemp1;
+            }
+            FileChannelType.Text = TypeTemp;
         }
     }
 }
