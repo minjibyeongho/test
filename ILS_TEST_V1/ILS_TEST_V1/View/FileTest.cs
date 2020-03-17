@@ -18,6 +18,10 @@ namespace ILS_TEST_V1
         public FileTest()
         {
             InitializeComponent();
+
+            //2020.03.17 gridVerify 마지막행 제거 //제거 안할 시 빈 부분 더블클릭하면 error발생하므로 (최정웅)
+            gridVerify.AllowUserToAddRows = false;
+
             //2020.02.24 gridVerify 더블클릭시 이벤트 생성 (박찬규)
             gridVerify.CellMouseDoubleClick += gridVerify_CellMouseDoubleClick;
         }
