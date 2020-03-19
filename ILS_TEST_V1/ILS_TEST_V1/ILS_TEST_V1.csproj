@@ -37,9 +37,6 @@
     <ApplicationIcon>Masco_ICON2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ntreev.Library.Psd, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c38f7f9c4e34740b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ntreev.Library.Psd.1.1.18134.1310\lib\net45\Ntreev.Library.Psd.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ILSType.cs" />
+    <Compile Include="Model\layerModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\ArrowTest.cs">
@@ -120,6 +118,11 @@
     <Content Include="masco4.ico" />
     <Content Include="Masco_ICON2.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Ntreev.Library.Psd\Ntreev.Library.Psd.csproj">
+      <Project>{8d99454c-1c0a-41a1-9035-c8c90f1b023e}</Project>
+      <Name>Ntreev.Library.Psd</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
