@@ -31,6 +31,8 @@ namespace Ntreev.Library.Psd
 
         bool IsClipping { get; }
 
+        bool IsVisible { get; }
+
         ILinkedLayer LinkedLayer { get; }
 
         string Name { get; }

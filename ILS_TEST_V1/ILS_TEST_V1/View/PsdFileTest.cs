@@ -64,12 +64,14 @@ namespace ILS_TEST_V1.View
             tmpVm.HasImage = layer.HasImage;
             tmpVm.HasMask = layer.HasMask;  //bool
             tmpVm.IsClippinig = layer.IsClipping;
-            
-            
+           
+
             // floatasd
             tmpVm.Opacity = layer.Opacity;  //불투명도
             var descriptionList = layer.GetDescription();
-            
+            //tmpVm.IsVisible = GetDictionaryValue(descriptionList, DescriptionMode.Records_Flags_IsVisible) != "True";
+            tmpVm.IsVisible = layer.IsVisible; // 옆에 IsVisible 사용하려면 , IPsdLayer.cs 랑 PsdDocument.cs 수정할 것
+
             /*
             layer.BlendMode;    //BlendMode
             layer.Channels.; // [], iChannel
