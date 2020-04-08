@@ -18,7 +18,8 @@ namespace ILS_TEST_V1.View
     {
         BindingList<IPsdLayer> layerAdd = new BindingList<IPsdLayer>(); //총 레이어를 담기위한 BindingList (2020.03.17 최정웅)
         BindingList<layerModel> gridlist = new BindingList<layerModel>();   // 레이어의 정보를 담은 BindingList ( 2020.03.17 민병호 )
-        private string filepath;
+        // private string filepath;
+        private int _index = 0;
 
         // 파라미터 없는 생성자( 2020.02.24 민병호 )
         public PsdFileTest()
@@ -41,11 +42,17 @@ namespace ILS_TEST_V1.View
         private void GetLayer(IPsdLayer layer, int layerDepth, int layerSeq)
         {
             Console.WriteLine(layer);
-            Console.WriteLine("IDX:{0}, Depth:{1}, Seq:{2}",layerAdd.Count, layerDepth, layerSeq);
+            Console.WriteLine("index: {0}, layerDepth: {1}, layerSeq: {2}", _index, layerDepth, layerSeq);
             Console.WriteLine();
 
             // 새로운 VM 생성
             layerModel tmpVm = new layerModel();
+
+            // 상위, 순번, 단계
+            tmpVm.Index = ++_index;
+            tmpVm.LayerDepth = layerDepth;
+            tmpVm.LayerSeq = layerSeq;
+
 
             // 각 레이어의 속성 정보를 넣어줌
             tmpVm.Name = layer.Name;
@@ -64,13 +71,38 @@ namespace ILS_TEST_V1.View
             tmpVm.HasImage = layer.HasImage;
             tmpVm.HasMask = layer.HasMask;  //bool
             tmpVm.IsClippinig = layer.IsClipping;
-           
 
-            // floatasd
+
+            // Channel
+            var sb1 = new List<string>();
+            var sb2 = new List<string>();
+            var sb3 = new List<string>();
+
+            foreach (var c in layer.Channels)
+            {
+                sb1.Add(string.Format("{0}", c.Type));
+                sb2.Add(string.Format("{0}", c.Data.Length));
+                sb3.Add(string.Format("{0}", c.Data.Length > 0 ? c.Data[0].ToString() : "-"));
+            }
+
+            tmpVm.ChannelTypes = string.Join("/", sb1);
+            tmpVm.ChannelSize = string.Join("/", sb2);
+            tmpVm.ChannelARGB = string.Join("/", sb3);
+
+            // Float
             tmpVm.Opacity = layer.Opacity;  //불투명도
             var descriptionList = layer.GetDescription();
-            //tmpVm.IsVisible = GetDictionaryValue(descriptionList, DescriptionMode.Records_Flags_IsVisible) != "True";
-            tmpVm.IsVisible = layer.IsVisible; // 옆에 IsVisible 사용하려면 , IPsdLayer.cs 랑 PsdDocument.cs 수정할 것
+            tmpVm.IsVisible = GetDictionaryValue(descriptionList, DescriptionMode.Records_Flags_IsVisible) != "True";
+            tmpVm.IsLock = GetDictionaryValue(descriptionList, DescriptionMode.Records_Flags_IsTransparency) == "True";
+            tmpVm.SectionType = GetDictionaryValue(descriptionList, DescriptionMode.Records_SectionType);
+            var flagNumber = GetDictionaryValue(descriptionList, DescriptionMode.Records_Flags_Number);
+            tmpVm.RecordsFlags = ToBin(int.Parse(flagNumber), 8);
+            tmpVm.HeightUnit = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_HeightUnit);
+            tmpVm.HorizontalRes = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_HorizontalRes);
+            tmpVm.HorizontalResUnit = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_HorizontalResUnit);
+            tmpVm.VerticalRes = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_VerticalRes);
+            tmpVm.VerticalResUnit = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_VerticalResUnit);
+            tmpVm.WidthUnit = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_WidthUnit);
 
             /*
             layer.BlendMode;    //BlendMode
@@ -92,15 +124,15 @@ namespace ILS_TEST_V1.View
             }
         }
 
-        private string GetDictionaryValue(Dictionary<DescriptionMode, object> descList, DescriptionMode mode)
-        {
-            return (descList.ContainsKey(mode) == false) ? string.Empty : string.Format("{0}", descList[mode]);
-        }
 
         // layer 카운트, parent layer카운트 및 레이어별 속성 list add 수정중임 (2020.03.17 최정웅)
         public void ReadFile(string filename)
         {
             var doc = PsdDocument.Create(filePath.Text);
+
+            // 처음 layer 읽기 시작하는 부분
+            // 상위, 순번 등의 레이어 단계를 나타내기 위해서 순서 정리가 필요
+            // 기존의 것은 보기 힘들게 되어 있으므로 이해해서 알아보기 쉽게 만드는게 중요( 사용하려면은.... )
 
             var layerSeq = 1;
             foreach (var x in doc.Childs.Reverse())
@@ -140,19 +172,32 @@ namespace ILS_TEST_V1.View
             var properties = imageSource["Resolution"] as IEnumerable<KeyValuePair<string, object>>;
             // 속성을 뽑아오는 것까지는 성공! ( IEnumerable<KeyValuePair<string, object>> 되어 있는 데이터를 어떻게 뽑아서 가져올지가 필요 )
             //var tlist = properties.ToList();
-             
+
             // 2020/03/18 pixel 정보 뽑아 오는 것 테스트 중( 민병호 )
             // 현재 상황 : properties에 pixel정보 들어가 있음
+            // 2020/04/08 Linq로 select 가능한지 확인( 코드 수를 줄일 수 있는 방안이 될 것.. )
+            StringBuilder min_sb1 = new StringBuilder();
+            
             foreach (var item in properties )
             {
-                Console.WriteLine("#######속성뽑기");
+                // Console.WriteLine("#######속성뽑기");
                 var key = item.Key;
-                Console.WriteLine("{0}", item.Value);
-            }    
-            /*
-            String TypeTemp = null;
-            String TypeTemp1 = null;
-            */
+                // Console.WriteLine("key : {0}, value : {1}", key, item.Value);
+                if ("HorizontalRes".Equals(item.Key))
+                {
+                    min_sb1.Append(item.Value);
+                    min_sb1.Append(" * ");
+                }
+
+                if ("VerticalRes".Equals(item.Key))
+                {
+                    min_sb1.Append(item.Value);
+                }
+            }
+
+            // 72 * 72 이런식으로 들어가 있을 것
+            FilePixel.Text = min_sb1.ToString();
+
 
             //2020.02.27  파일 정보 텍스트 박스 값 입력
             FileNameBox.Text = Path.GetFileNameWithoutExtension(filePath);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
@@ -164,11 +209,11 @@ namespace ILS_TEST_V1.View
             FileDepth.Text = doc.FileHeaderSection.Depth.ToString();
             FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();
 
+            
 
             var imageSource11 = doc as IImageSource;
             var iproperties = imageSource11 as IProperties;
-            // var imageResource11 = doc as 
-            // iproperties
+            
             List<string> tmp = new List<string>();
             foreach (var channel in imageSource11.Channels)
             {
@@ -191,6 +236,49 @@ namespace ILS_TEST_V1.View
             FileChannelType.Text = TypeTemp;
             */
         }
+
+        // 원본 소스에서의 필요 메소드( 분석은 아직 못함 2020/04/08 민병호 )
+        public static string ToBin(int value, int len)
+        {
+            return (len > 1 ? ToBin(value >> 1, len - 1) : null) + "01"[value & 1];
+        }
+
+        private string GetDictionaryValue(Dictionary<DescriptionMode, object> descList, DescriptionMode mode)
+        {
+            return (descList.ContainsKey(mode) == false) ? string.Empty : string.Format("{0}", descList[mode]);
+        }
+
+        private string GetChannelData(IChannel[] channels, int chIndex)
+        {
+            if (channels.Length <= chIndex)
+                return "-:-";
+
+            var ch = channels[chIndex];
+            var result = string.Format("{0}:{1}", ch.Type, ch.Data.Length > 0 ? ch.Data[0].ToString() : "-");
+            return result;
+        }
+
+        // datagridview 변경 시 이벤트 발생( 2020/04/08 민병호 - propertygridView와 매칭 )
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+
+            propertyGrid1.SelectedObject = null;
+            // 표로 속성을 표시하는 개체를 가져오거나 설정합니다.
+            // 한개 선택이 아닐 때는 반환( 한개만 선택하도록 설정 )
+            if (dataGridView1.SelectedRows.Count != 1)
+                return;
+
+            // datagridview에서 선택된 행에 바인딩된 객체를 가져오는 것
+            var item = dataGridView1.SelectedRows[0].DataBoundItem as layerModel;
+            // DataGridViewRow.DataBoundItem : 행을 채운 데이터 바인딩된 개체를 가져옵니다.
+            // propertyGrid.SelectedObject : 표로 속성을 표시하는 개체를 가져오거나 설정합니다.
+            // 즉, propertyGrid에 datagridview에서 선택된 객체를 바인딩 시켜주는 것
+            // ( layerModel에서 category, description에 설정된 값들을 읽어서 propertygrid에 표출해준다 )
+            propertyGrid1.SelectedObject = item;
+        }
+
+
+
 
     }
 }
