@@ -12,6 +12,10 @@ using System.Windows.Forms;
 using ILS_TEST_V1.Model;
 using Ntreev.Library.Psd.UserModel;
 
+//2020.04.10 pcg 
+using System.Runtime.InteropServices;
+using Excel = Microsoft.Office.Interop.Excel;
+
 namespace ILS_TEST_V1.View
 {
     public partial class PsdFileTest : Form
@@ -276,9 +280,75 @@ namespace ILS_TEST_V1.View
             // ( layerModel에서 category, description에 설정된 값들을 읽어서 propertygrid에 표출해준다 )
             propertyGrid1.SelectedObject = item;
         }
+        
+        //2020.04.10 pcg  엑셀출력 이벤트 관련 내용
+        static Excel.Application excelApp = null;
+        static Excel.Workbook workBook = null;
+        static Excel.Worksheet workSheet = null;
 
+        private void ExcellPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  // 바탕화면 경로(우선 바탕화면에 경로 잡아놈!!)
+                string path = Path.Combine(desktopPath, FileNameBox.Text + "_"+System.DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss ")+".xlsx"); // 엑셀 파일 저장 경로(우선 파일명으로 작업함)
 
+                excelApp = new Excel.Application();                             // 엑셀 어플리케이션 생성
+                workBook = excelApp.Workbooks.Add();                            // 워크북 추가
+                workSheet = workBook.Worksheets.get_Item(1) as Excel.Worksheet; // 엑셀 첫번째 워크시트 가져오기
 
+                //여기서부터 작업 하면되는데 행에다가는 순번 적으면 될꺼 같고 입력값에는 레이어네임 입력하면 될꺼같다.
+                //workSheet.Cells[1, 1] = "레이어";
+                // 헤더 출력
+                for (int i = 0; i < dataGridView1.Columns.Count - 1; i++)
+                {
+                    workSheet.Cells[1, i + 1] = dataGridView1.Columns[i].HeaderText;
+                }
+                //내용 출력
+                for (int r = 0; r < dataGridView1.Rows.Count; r++)
+                {
+                    for (int i = 0; i < dataGridView1.Columns.Count - 1; i++)
+                    {
+                        workSheet.Cells[r + 2, i + 1] = dataGridView1.Rows[r].Cells[i].Value;
+                    }
+                }   
 
+                workSheet.Columns.AutoFit();                                    // 열 너비 자동 맞춤
+                workBook.SaveAs(path, Excel.XlFileFormat.xlWorkbookDefault);    // 엑셀 파일 저장
+                workBook.Close(true);
+                excelApp.Quit();
+            }
+            finally
+            {
+                ReleaseObject(workSheet);
+                ReleaseObject(workBook);
+                ReleaseObject(excelApp);
+            }
+
+        }
+        /// <summary>
+        /// 액셀 객체 해제 메소드
+        /// </summary>
+        /// <param name="obj"></param>
+        static void ReleaseObject(object obj)
+        {
+            try
+            {
+                if (obj != null)
+                {
+                    Marshal.ReleaseComObject(obj);  // 액셀 객체 해제
+                    obj = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                throw ex;
+            }
+            finally
+            {
+                GC.Collect();   // 가비지 수집
+            }
+        }
     }
 }

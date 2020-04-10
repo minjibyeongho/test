@@ -51,7 +51,7 @@
             this.FileChannelType = new System.Windows.Forms.TextBox();
             this.FilePixel = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.ExcellPrint = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
@@ -268,15 +268,16 @@
             this.button2.Text = "PSD 읽기";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // ExcellPrint
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(1045, 57);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(94, 20);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "리스트 출력";
-            this.button3.UseVisualStyleBackColor = true;
+            this.ExcellPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExcellPrint.Location = new System.Drawing.Point(1045, 57);
+            this.ExcellPrint.Name = "ExcellPrint";
+            this.ExcellPrint.Size = new System.Drawing.Size(94, 20);
+            this.ExcellPrint.TabIndex = 22;
+            this.ExcellPrint.Text = "리스트 출력";
+            this.ExcellPrint.UseVisualStyleBackColor = true;
+            this.ExcellPrint.Click += new System.EventHandler(this.ExcellPrint_Click);
             // 
             // dataGridView2
             // 
@@ -363,7 +364,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Controls.Add(this.propertyGrid1);
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.ExcellPrint);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.FilePixel);
             this.groupBox2.Controls.Add(this.FileChannelType);
@@ -440,7 +441,7 @@
         private System.Windows.Forms.TextBox FileChannelType;
         private System.Windows.Forms.TextBox FilePixel;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button ExcellPrint;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.Button button4;
