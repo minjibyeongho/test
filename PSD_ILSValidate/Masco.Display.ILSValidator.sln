@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masco.Display.ILSValidator.Client.Launcher", "Masco.Display.ILSValidator.Client.Launcher\Masco.Display.ILSValidator.Client.Launcher.csproj", "{40933490-3D85-4B9F-8554-CDFA2F57B659}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Psd.Validate", "Psd.Validate", "{CD644BCD-C5BA-45ED-ABD3-2D366ED001CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masco.Display.ILSValidator.Client.Forms", "Masco.Display.ILSValidator.Client.Forms\Masco.Display.ILSValidator.Client.Forms.csproj", "{6CE9EE3B-8692-4906-A8E6-320A3873964C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masco.Display.ILSValidator.Client.Common", "Masco.Display.ILSValidator.Client.Common\Masco.Display.ILSValidator.Client.Common.csproj", "{11CA269B-E0F5-44B9-8EF4-E6A445CB261B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masco.Display.ILSValidator.Client.Controls", "Masco.Display.ILSValidator.Client.Controls\Masco.Display.ILSValidator.Client.Controls.csproj", "{C488AD22-ADB9-4E01-8956-B84AF057196D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ntreev.Library.Psd", "Ntreev.Library.Psd\Ntreev.Library.Psd.csproj", "{230316EC-0A17-4E3B-BA94-523401A67C97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40933490-3D85-4B9F-8554-CDFA2F57B659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40933490-3D85-4B9F-8554-CDFA2F57B659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40933490-3D85-4B9F-8554-CDFA2F57B659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40933490-3D85-4B9F-8554-CDFA2F57B659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CE9EE3B-8692-4906-A8E6-320A3873964C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CE9EE3B-8692-4906-A8E6-320A3873964C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CE9EE3B-8692-4906-A8E6-320A3873964C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CE9EE3B-8692-4906-A8E6-320A3873964C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11CA269B-E0F5-44B9-8EF4-E6A445CB261B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11CA269B-E0F5-44B9-8EF4-E6A445CB261B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11CA269B-E0F5-44B9-8EF4-E6A445CB261B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11CA269B-E0F5-44B9-8EF4-E6A445CB261B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C488AD22-ADB9-4E01-8956-B84AF057196D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C488AD22-ADB9-4E01-8956-B84AF057196D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C488AD22-ADB9-4E01-8956-B84AF057196D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C488AD22-ADB9-4E01-8956-B84AF057196D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230316EC-0A17-4E3B-BA94-523401A67C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230316EC-0A17-4E3B-BA94-523401A67C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230316EC-0A17-4E3B-BA94-523401A67C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230316EC-0A17-4E3B-BA94-523401A67C97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{40933490-3D85-4B9F-8554-CDFA2F57B659} = {CD644BCD-C5BA-45ED-ABD3-2D366ED001CA}
+		{6CE9EE3B-8692-4906-A8E6-320A3873964C} = {CD644BCD-C5BA-45ED-ABD3-2D366ED001CA}
+		{11CA269B-E0F5-44B9-8EF4-E6A445CB261B} = {CD644BCD-C5BA-45ED-ABD3-2D366ED001CA}
+		{C488AD22-ADB9-4E01-8956-B84AF057196D} = {CD644BCD-C5BA-45ED-ABD3-2D366ED001CA}
+		{230316EC-0A17-4E3B-BA94-523401A67C97} = {CD644BCD-C5BA-45ED-ABD3-2D366ED001CA}
+	EndGlobalSection
+EndGlobal

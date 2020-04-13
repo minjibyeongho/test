@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.masco.co.kr/ILSValidator" elementFormDefault="qualified" targetNamespace="http://www.masco.co.kr/ILSValidator" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8080/MascoDisplayILSValidatorMiddleware/IFileTransfer?xsd=xsd0" namespace="http://schemas.microsoft.com/Message" />
+  <xs:element name="RemoteFileInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.microsoft.com/Message" name="FileByteStream" type="q1:StreamBody" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckListPk" type="xs:int" />
+  <xs:element name="IsBasemap" type="xs:boolean" />
+  <xs:element name="Length" type="xs:long" />
+  <xs:element name="DownloadStreamRequest">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="captureImagePk" type="xs:int" />
+  <xs:element name="DownloadStreamInfo">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Bytes" nillable="true" type="xs:base64Binary" />
+  <xs:element name="ChildPath" nillable="true" type="xs:string" />
+  <xs:element name="FileName" nillable="true" type="xs:string" />
+</xs:schema>

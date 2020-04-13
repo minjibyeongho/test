@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.masco.co.kr/ILSValidator" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.masco.co.kr/ILSValidator" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.masco.co.kr/ILSValidator/Imports">
+      <xsd:import schemaLocation="http://localhost:20001/MascoDisplayILSValidatorMiddleware/ICheckList?xsd=xsd0" namespace="http://www.masco.co.kr/ILSValidator" />
+      <xsd:import schemaLocation="http://localhost:20001/MascoDisplayILSValidatorMiddleware/ICheckList?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:20001/MascoDisplayILSValidatorMiddleware/ICheckList?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Masco.Display.ILSValidator.Entities" />
+      <xsd:import schemaLocation="http://localhost:20001/MascoDisplayILSValidatorMiddleware/ICheckList?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICheckList_Validate_InputMessage">
+    <wsdl:part name="parameters" element="tns:Validate" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_Validate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetCheckList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheckList" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetCheckList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheckListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetCheckListBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheckListBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetCheckListBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCheckListByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertCheckList_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertCheckList" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertCheckList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertCheckListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateCheckList_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCheckList" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateCheckList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCheckListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetImagePkBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetImagePkBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetImagePkBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetImagePkByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateImageIsUse_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageIsUse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateImageIsUse_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateImageIsUseResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetMemoBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMemoBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetMemoBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMemoByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertMemo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertMemo" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertMemo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertMemoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetLaneInfoListBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaneInfoListBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetLaneInfoListBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLaneInfoListByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertLaneInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertLaneInfo" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertLaneInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertLaneInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateLaneInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLaneInfo" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateLaneInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateLaneInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_DeleteLaneInfoBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteLaneInfoBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_DeleteLaneInfoBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteLaneInfoByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetRequestListBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequestListBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetRequestListBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequestListByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetRequestBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequestBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_GetRequestBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequestByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_DeleteRequestBy_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRequestBy" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_DeleteRequestBy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRequestByResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_InsertRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRequest" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UpdateRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UserCheck_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserCheck" />
+  </wsdl:message>
+  <wsdl:message name="ICheckList_UserCheck_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserCheckResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICheckList">
+    <wsdl:operation name="Validate">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/Validate" message="tns:ICheckList_Validate_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/ValidateResponse" message="tns:ICheckList_Validate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckList">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetCheckList" message="tns:ICheckList_GetCheckList_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetCheckListResponse" message="tns:ICheckList_GetCheckList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCheckListBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetCheckListBy" message="tns:ICheckList_GetCheckListBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetCheckListByResponse" message="tns:ICheckList_GetCheckListBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertCheckList">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertCheckList" message="tns:ICheckList_InsertCheckList_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertCheckListResponse" message="tns:ICheckList_InsertCheckList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCheckList">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateCheckList" message="tns:ICheckList_UpdateCheckList_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateCheckListResponse" message="tns:ICheckList_UpdateCheckList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagePkBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetImagePkBy" message="tns:ICheckList_GetImagePkBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetImagePkByResponse" message="tns:ICheckList_GetImagePkBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateImageIsUse">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateImageIsUse" message="tns:ICheckList_UpdateImageIsUse_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateImageIsUseResponse" message="tns:ICheckList_UpdateImageIsUse_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMemoBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetMemoBy" message="tns:ICheckList_GetMemoBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetMemoByResponse" message="tns:ICheckList_GetMemoBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertMemo">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertMemo" message="tns:ICheckList_InsertMemo_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertMemoResponse" message="tns:ICheckList_InsertMemo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLaneInfoListBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetLaneInfoListBy" message="tns:ICheckList_GetLaneInfoListBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetLaneInfoListByResponse" message="tns:ICheckList_GetLaneInfoListBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertLaneInfo">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertLaneInfo" message="tns:ICheckList_InsertLaneInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertLaneInfoResponse" message="tns:ICheckList_InsertLaneInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLaneInfo">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateLaneInfo" message="tns:ICheckList_UpdateLaneInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateLaneInfoResponse" message="tns:ICheckList_UpdateLaneInfo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLaneInfoBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/DeleteLaneInfoBy" message="tns:ICheckList_DeleteLaneInfoBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/DeleteLaneInfoByResponse" message="tns:ICheckList_DeleteLaneInfoBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequestListBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetRequestListBy" message="tns:ICheckList_GetRequestListBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetRequestListByResponse" message="tns:ICheckList_GetRequestListBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequestBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetRequestBy" message="tns:ICheckList_GetRequestBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/GetRequestByResponse" message="tns:ICheckList_GetRequestBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRequestBy">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/DeleteRequestBy" message="tns:ICheckList_DeleteRequestBy_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/DeleteRequestByResponse" message="tns:ICheckList_DeleteRequestBy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertRequest">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertRequest" message="tns:ICheckList_InsertRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/InsertRequestResponse" message="tns:ICheckList_InsertRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRequest">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateRequest" message="tns:ICheckList_UpdateRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UpdateRequestResponse" message="tns:ICheckList_UpdateRequest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserCheck">
+      <wsdl:input wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UserCheck" message="tns:ICheckList_UserCheck_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.masco.co.kr/ILSValidator/ICheckList/UserCheckResponse" message="tns:ICheckList_UserCheck_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>
