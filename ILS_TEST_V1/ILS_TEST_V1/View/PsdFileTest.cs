@@ -38,12 +38,16 @@ namespace ILS_TEST_V1.View
 
             filePath.Text = filepath;
 
+            //그리드 마지막행 제거
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView2.AllowUserToAddRows = false;
+            dataGridView3.AllowUserToAddRows = false;
         }
 
         // dataGridView1 데이터그리드뷰 이름
 
         //child 레이어 list add, 재귀함수 ( 2020.03.17 최정웅)
-        private void GetLayer(IPsdLayer layer, int layerDepth, int layerSeq)
+        private void GetLayer(IPsdLayer layer,int layerDepth, int layerSeq)
         {
             Console.WriteLine(layer);
             Console.WriteLine("index: {0}, layerDepth: {1}, layerSeq: {2}", _index, layerDepth, layerSeq);
@@ -93,6 +97,8 @@ namespace ILS_TEST_V1.View
             tmpVm.ChannelSize = string.Join("/", sb2);
             tmpVm.ChannelARGB = string.Join("/", sb3);
 
+            tmpVm.ChildCount = layer.Childs.Count();
+
             // Float
             tmpVm.Opacity = layer.Opacity;  //불투명도
             var descriptionList = layer.GetDescription();
@@ -123,7 +129,6 @@ namespace ILS_TEST_V1.View
             var childSeq = 1;
             foreach (var y in layer.Childs.Reverse()) //IPsdLayer는 첫번째 child가 최상위 폴더가 아닌 그하위 폴더 즉 ETC1 이런거가 나옴 그래서 최상위 폴더가 안나오는 것임.
             {
-                //layerAdd.Add(y);
                 GetLayer(y, layerDepth + 1, childSeq++);
             }
         }
@@ -142,6 +147,38 @@ namespace ILS_TEST_V1.View
             foreach (var x in doc.Childs.Reverse())
             {
                 GetLayer(x, 1, layerSeq++);
+            }
+
+
+            var idx = gridlist.Count();
+
+            // 상위 인덱스 찾는 로직
+            foreach (var x in gridlist)
+            {
+                x.Index = idx--;
+                if (x.LayerDepth == 1)
+                {
+                    x.ParentIndex = 0;
+                }
+                else
+                {
+                    x.ParentIndex = -1;
+                }
+            }
+            int layerDepth = 1;
+
+            while (true)
+            {
+                ++layerDepth;
+                var subLayerList = gridlist.Where(x => x.LayerDepth == layerDepth && x.ParentIndex < 0);
+                if (subLayerList.Any() == false)
+                    break;
+
+                foreach (var z in subLayerList)
+                {
+                    var parentIndex = gridlist.Where(x => x.Index > z.Index).OrderByDescending(x => x.Index).Min(x => x.Index);
+                    z.ParentIndex = parentIndex;
+                }
             }
         }
 

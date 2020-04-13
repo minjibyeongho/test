@@ -16,7 +16,7 @@
     <PackageTags>c# parser photoshop .net</PackageTags>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <OutputPath>C:\Users\win10\Desktop\Project\ILS_TEST_V1\ILS_TEST_V1\bin\Debug\</OutputPath>
+    <OutputPath>D:\스터디 테스트 프로젝트\test\ILS_TEST_V1\ILS_TEST_V1\bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net35'">
