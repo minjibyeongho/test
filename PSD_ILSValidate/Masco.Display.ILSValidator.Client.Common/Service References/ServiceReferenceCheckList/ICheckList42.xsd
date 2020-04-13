@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Masco.Display.ILSValidator.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Masco.Display.ILSValidator.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfCHECKLIST">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CHECKLIST" nillable="true" type="tns:CHECKLIST" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCHECKLIST" nillable="true" type="tns:ArrayOfCHECKLIST" />
+  <xs:complexType name="CHECKLIST">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="APPLY_AM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="APPLY_OBN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="APPLY_OEM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BOTTOM_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CHECKLIST_PK" type="xs:int" />
+      <xs:element minOccurs="0" name="CREATE_DT" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ILS_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IS_NAME" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MAIN_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MAP_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="MMS_LONLAT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NODE_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="REQ_TYPE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REQ_UNAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UPDATE_DT" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UPDATE_UNAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WORK_STATE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CHECKLIST" nillable="true" type="tns:CHECKLIST" />
+  <xs:complexType name="ArrayOfLANEINFO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LANEINFO" nillable="true" type="tns:LANEINFO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLANEINFO" nillable="true" type="tns:ArrayOfLANEINFO" />
+  <xs:complexType name="LANEINFO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CHECKLIST_PK" type="xs:int" />
+      <xs:element minOccurs="0" name="CREATE_DT" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DIRECTION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_CODE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IMAGE_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IS_DELETE" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LANEINFO_PK" type="xs:int" />
+      <xs:element minOccurs="0" name="LANE_NAME" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUMBER" type="xs:int" />
+      <xs:element minOccurs="0" name="UPDATE_DT" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LANEINFO" nillable="true" type="tns:LANEINFO" />
+  <xs:complexType name="ArrayOfREQUEST">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="REQUEST" nillable="true" type="tns:REQUEST" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfREQUEST" nillable="true" type="tns:ArrayOfREQUEST" />
+  <xs:complexType name="REQUEST">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CHECKLIST_PK" type="xs:int" />
+      <xs:element minOccurs="0" name="CREATE_DT" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DESCRIPTION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDX" type="xs:int" />
+      <xs:element minOccurs="0" name="IS_DELETE" type="xs:boolean" />
+      <xs:element minOccurs="0" name="REQ_KIND" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UPDATE_DT" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="REQUEST" nillable="true" type="tns:REQUEST" />
+  <xs:complexType name="USER">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ETC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_ID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_PASSWORD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="USER_PK" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="USER" nillable="true" type="tns:USER" />
+</xs:schema>
