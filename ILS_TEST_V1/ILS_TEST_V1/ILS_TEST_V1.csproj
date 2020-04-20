@@ -52,6 +52,9 @@
     <ApplicationIcon>Masco_ICON2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Masco.Core.Helper">
+      <HintPath>.\Masco.Core.Helper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,8 +68,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILSType.cs" />
+    <Compile Include="Helper1.cs" />
+    <Compile Include="Helper\ValidationMethods.cs" />
+    <Compile Include="Model\ILSType.cs" />
+    <Compile Include="Model\ErrorMsgLevel.cs" />
+    <Compile Include="Model\ErrorMsgVM.cs" />
+    <Compile Include="Model\LayerIndex.cs" />
     <Compile Include="Model\layerModel.cs" />
+    <Compile Include="Model\LayerNameManager.cs" />
+    <Compile Include="Model\LayerNameVM.cs" />
+    <Compile Include="Model\PsdFileSectionVM.cs" />
+    <Compile Include="Model\PsdFileVM.cs" />
+    <Compile Include="Model\Validate1.cs" />
+    <Compile Include="Model\ValidatePsdFileVM.cs" />
+    <Compile Include="Model\ValidateVM.cs" />
+    <Compile Include="Model\ValidationCodeType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\ArrowTest.cs">

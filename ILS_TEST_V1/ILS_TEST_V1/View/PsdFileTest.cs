@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ILS_TEST_V1.Model;
 using Ntreev.Library.Psd.UserModel;
+using ILS_TEST_V1.Helper;
 
 //2020.04.10 pcg 
 using System.Runtime.InteropServices;
@@ -22,6 +23,14 @@ namespace ILS_TEST_V1.View
     {
         BindingList<IPsdLayer> layerAdd = new BindingList<IPsdLayer>(); //총 레이어를 담기위한 BindingList (2020.03.17 최정웅)
         BindingList<layerModel> gridlist = new BindingList<layerModel>();   // 레이어의 정보를 담은 BindingList ( 2020.03.17 민병호 )
+        
+        // 원본 코드
+        private IList<ValidateVM> _fullValidCodeList; // 오류검증 list( 2020.04.20 민병호 )
+        private ValidatePsdFileVM _validatePsdFileVM;
+        private PsdFileVM _psdFile;
+        private PsdFileSectionVM _psdFileSection;
+        private ValidationMethods _validationMethods;
+
         // private string filepath;
         private int _index = 0;
 
@@ -29,18 +38,152 @@ namespace ILS_TEST_V1.View
         public PsdFileTest()
         {
             InitializeComponent();
+            InitControls();
+
+        }
+
+        private void InitControls()
+        {
+            _psdFile = new PsdFileVM();
+            _psdFileSection = new PsdFileSectionVM();
+
+            _validationMethods = new ValidationMethods();
+            _validationMethods.Reset();
+            InitGrid(gridValidCode);
+
+            gridValidCode.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            gridValidCode.DataSource = _validationMethods.DsValidCodeList;
+
+            var columnName = string.Empty;
+            {
+                columnName = Masco.Core.Helper.Refrection.GetPropName<ValidateVM>(x => x.INDEX);
+                gridValidCode.Columns[columnName].Width = 60;
+
+                columnName = Masco.Core.Helper.Refrection.GetPropName<ValidateVM>(x => x.CODE);
+                gridValidCode.Columns[columnName].Width = 60;
+
+                columnName = Masco.Core.Helper.Refrection.GetPropName<ValidateVM>(x => x.CHECK);
+                gridValidCode.Columns[columnName].Width = 60;
+
+                columnName = Masco.Core.Helper.Refrection.GetPropName<ValidateVM>(x => x.TITLE);
+                gridValidCode.Columns[columnName].Width = 200;
+
+                columnName = Masco.Core.Helper.Refrection.GetPropName<ValidateVM>(x => x.ResultState);
+                gridValidCode.Columns[columnName].Width = 80;
+            }
+
+            // ILS 검증부분 이벤트 추가 및 새로 생성
+            _fullValidCodeList = new List<ValidateVM>();
+            var v = new Validate1();
+            _fullValidCodeList = v.GetList();
+
+            // radio btn 이벤트 추가
+            rbtn1.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn2.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn3.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn4.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn5.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn6.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn7.CheckedChanged += rbtnLSType_CheckedChanged;
+            rbtn8.CheckedChanged += rbtnLSType_CheckedChanged;
+            // rdoAll.CheckedChanged += rdoILSTypeAll_CheckedChanged;
+        }
+        private void InitGrid(DataGridView g)
+        {
+            g.AllowUserToAddRows = false;
+            g.AllowUserToDeleteRows = false;
+            g.ReadOnly = true;
+            g.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+
+        void rbtnLSType_CheckedChanged(object sender, EventArgs e)
+        {
+            RefreshValidCodeList();
+        }
+
+        void RefreshValidCodeList()
+        {
+            _validationMethods.DsValidCodeList.Clear();
+
+            HashSet<string> ilsTypeSet;
+            GetSelectedILSType(out ilsTypeSet);
+
+            foreach (var item in ilsTypeSet)
+            {
+                Console.WriteLine("ilsTypeSet : {0}", item);
+            }
+
+            foreach (var x in _fullValidCodeList)
+            {
+
+                Console.WriteLine("x.ILSType : {0}, x.CHECK : {1}, x.CODE : {2}", x.ILSType, x.CHECK, x.CODE);
+
+                if (ilsTypeSet.Contains(x.ILSType))
+                    _validationMethods.DsValidCodeList.Add(x);
+            }
+        }
+
+        // 선택된 radio btn을 가져오는 것
+        string GetSelectedILSType(out HashSet<string> ilsType)
+        {
+            var result = string.Empty;
+            ilsType = new HashSet<string>();
+            if (rbtn1.Checked)
+            {
+                ilsType.Add("CM");
+                ilsType.Add("NC");
+                result = "NC";
+            }
+            else if (rbtn2.Checked)
+            {
+                ilsType.Add("CM");
+                ilsType.Add("JC");
+                result = "JC";
+            }
+            else if (rbtn3.Checked)
+            {
+                ilsType.Add("CE");
+                result = "CE";
+            }
+            else if (rbtn4.Checked)
+            {
+                ilsType.Add("ET");
+                result = "ET";
+            }
+            else if (rbtn5.Checked)
+            {
+                ilsType.Add("MD");
+                result = "MD";
+            }
+            else if (rbtn6.Checked)
+            {
+                ilsType.Add("CR3D");
+                result = "CR3D";
+            }
+            else if (rbtn7.Checked)
+            {
+                ilsType.Add("RASMM");
+                result = "RASMM";
+            }
+            else if (rbtn8.Checked)
+            {
+                ilsType.Add("RASMG");
+                result = "RASMG";
+            }
+            return result;
         }
 
         // 파라미터 있는 생성자 생성 ( 2020.02.24 민병호 )
         public PsdFileTest(string filepath)
         {
             InitializeComponent();
-
+            InitControls();
             filePath.Text = filepath;
 
             //그리드 마지막행 제거
             dataGridView1.AllowUserToAddRows = false;
-            dataGridView2.AllowUserToAddRows = false;
+            gridValidCode.AllowUserToAddRows = false;
             dataGridView3.AllowUserToAddRows = false;
         }
 

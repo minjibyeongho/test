@@ -8,7 +8,7 @@ using Ntreev.Library.Psd;
 
 namespace ILS_TEST_V1.Model
 {
-    class layerModel    // : ModelBase<layerModel>
+    public class layerModel : ModelBase<layerModel>
     {
         [DisplayName("순번")]
         public int Index { get; set; }

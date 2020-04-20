@@ -52,7 +52,7 @@
             this.FilePixel = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.ExcellPrint = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.gridValidCode = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -60,13 +60,23 @@
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.rbtn8 = new System.Windows.Forms.RadioButton();
+            this.rbtn7 = new System.Windows.Forms.RadioButton();
+            this.rbtn6 = new System.Windows.Forms.RadioButton();
+            this.rbtn5 = new System.Windows.Forms.RadioButton();
+            this.rbtn4 = new System.Windows.Forms.RadioButton();
+            this.rbtn3 = new System.Windows.Forms.RadioButton();
+            this.rbtn2 = new System.Windows.Forms.RadioButton();
+            this.rbtn1 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridValidCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // filePath
@@ -279,15 +289,15 @@
             this.ExcellPrint.UseVisualStyleBackColor = true;
             this.ExcellPrint.Click += new System.EventHandler(this.ExcellPrint_Click);
             // 
-            // dataGridView2
+            // gridValidCode
             // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gridValidCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 20);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(538, 191);
-            this.dataGridView2.TabIndex = 25;
+            this.gridValidCode.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridValidCode.Location = new System.Drawing.Point(6, 20);
+            this.gridValidCode.Name = "gridValidCode";
+            this.gridValidCode.Size = new System.Drawing.Size(538, 191);
+            this.gridValidCode.TabIndex = 25;
             // 
             // dataGridView3
             // 
@@ -315,7 +325,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox3.Controls.Add(this.dataGridView2);
+            this.groupBox3.Controls.Add(this.gridValidCode);
             this.groupBox3.Location = new System.Drawing.Point(31, 476);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(554, 225);
@@ -391,11 +401,117 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "파일정보";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.rbtn8);
+            this.groupBox5.Controls.Add(this.rbtn7);
+            this.groupBox5.Controls.Add(this.rbtn6);
+            this.groupBox5.Controls.Add(this.rbtn5);
+            this.groupBox5.Controls.Add(this.rbtn4);
+            this.groupBox5.Controls.Add(this.rbtn3);
+            this.groupBox5.Controls.Add(this.rbtn2);
+            this.groupBox5.Controls.Add(this.rbtn1);
+            this.groupBox5.Location = new System.Drawing.Point(33, 720);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(901, 40);
+            this.groupBox5.TabIndex = 34;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "ILS_Type";
+            // 
+            // rbtn8
+            // 
+            this.rbtn8.AutoSize = true;
+            this.rbtn8.Location = new System.Drawing.Point(771, 15);
+            this.rbtn8.Name = "rbtn8";
+            this.rbtn8.Size = new System.Drawing.Size(129, 16);
+            this.rbtn8.TabIndex = 0;
+            this.rbtn8.TabStop = true;
+            this.rbtn8.Text = "휴게소요약맵(지니)";
+            this.rbtn8.UseVisualStyleBackColor = true;
+            // 
+            // rbtn7
+            // 
+            this.rbtn7.AutoSize = true;
+            this.rbtn7.Location = new System.Drawing.Point(636, 15);
+            this.rbtn7.Name = "rbtn7";
+            this.rbtn7.Size = new System.Drawing.Size(129, 16);
+            this.rbtn7.TabIndex = 0;
+            this.rbtn7.TabStop = true;
+            this.rbtn7.Text = "휴게소요약맵(맵피)";
+            this.rbtn7.UseVisualStyleBackColor = true;
+            // 
+            // rbtn6
+            // 
+            this.rbtn6.AutoSize = true;
+            this.rbtn6.Location = new System.Drawing.Point(553, 15);
+            this.rbtn6.Name = "rbtn6";
+            this.rbtn6.Size = new System.Drawing.Size(77, 16);
+            this.rbtn6.TabIndex = 0;
+            this.rbtn6.TabStop = true;
+            this.rbtn6.Text = "3D 교차로";
+            this.rbtn6.UseVisualStyleBackColor = true;
+            // 
+            // rbtn5
+            // 
+            this.rbtn5.AutoSize = true;
+            this.rbtn5.Location = new System.Drawing.Point(386, 15);
+            this.rbtn5.Name = "rbtn5";
+            this.rbtn5.Size = new System.Drawing.Size(161, 16);
+            this.rbtn5.TabIndex = 0;
+            this.rbtn5.TabStop = true;
+            this.rbtn5.Text = "모식도(MimeticDiagram)";
+            this.rbtn5.UseVisualStyleBackColor = true;
+            // 
+            // rbtn4
+            // 
+            this.rbtn4.AutoSize = true;
+            this.rbtn4.Location = new System.Drawing.Point(302, 15);
+            this.rbtn4.Name = "rbtn4";
+            this.rbtn4.Size = new System.Drawing.Size(78, 16);
+            this.rbtn4.TabIndex = 0;
+            this.rbtn4.TabStop = true;
+            this.rbtn4.Text = "ETC (ET)";
+            this.rbtn4.UseVisualStyleBackColor = true;
+            // 
+            // rbtn3
+            // 
+            this.rbtn3.AutoSize = true;
+            this.rbtn3.Location = new System.Drawing.Point(198, 15);
+            this.rbtn3.Name = "rbtn3";
+            this.rbtn3.Size = new System.Drawing.Size(98, 16);
+            this.rbtn3.TabIndex = 0;
+            this.rbtn3.TabStop = true;
+            this.rbtn3.Text = "도시고속(CE)";
+            this.rbtn3.UseVisualStyleBackColor = true;
+            // 
+            // rbtn2
+            // 
+            this.rbtn2.AutoSize = true;
+            this.rbtn2.Location = new System.Drawing.Point(125, 15);
+            this.rbtn2.Name = "rbtn2";
+            this.rbtn2.Size = new System.Drawing.Size(67, 16);
+            this.rbtn2.TabIndex = 0;
+            this.rbtn2.TabStop = true;
+            this.rbtn2.Text = "JC (JC)";
+            this.rbtn2.UseVisualStyleBackColor = true;
+            // 
+            // rbtn1
+            // 
+            this.rbtn1.AutoSize = true;
+            this.rbtn1.Location = new System.Drawing.Point(8, 15);
+            this.rbtn1.Name = "rbtn1";
+            this.rbtn1.Size = new System.Drawing.Size(111, 16);
+            this.rbtn1.TabIndex = 0;
+            this.rbtn1.TabStop = true;
+            this.rbtn1.Text = "일반교차로(NC)";
+            this.rbtn1.UseVisualStyleBackColor = true;
+            // 
             // PsdFileTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1227, 777);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -406,13 +522,15 @@
             this.Text = "PSD 파일 검증";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridValidCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -442,7 +560,7 @@
         private System.Windows.Forms.TextBox FilePixel;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button ExcellPrint;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView gridValidCode;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -450,5 +568,14 @@
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton rbtn8;
+        private System.Windows.Forms.RadioButton rbtn7;
+        private System.Windows.Forms.RadioButton rbtn6;
+        private System.Windows.Forms.RadioButton rbtn5;
+        private System.Windows.Forms.RadioButton rbtn4;
+        private System.Windows.Forms.RadioButton rbtn3;
+        private System.Windows.Forms.RadioButton rbtn2;
+        private System.Windows.Forms.RadioButton rbtn1;
     }
 }
