@@ -13,5 +13,11 @@ namespace ILS_TEST_V1.Model
         public string Name { get; set; }
         public string Extension { get; set; }
 
+        // Model 요소 확인용
+        public void ComponentPrint()
+        {
+            Console.WriteLine("Name : {0}, Extension : {1}", Name, Extension);
+        }
+
     }
 }

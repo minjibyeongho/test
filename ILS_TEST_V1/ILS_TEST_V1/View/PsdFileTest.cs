@@ -30,6 +30,7 @@ namespace ILS_TEST_V1.View
         private PsdFileVM _psdFile;
         private PsdFileSectionVM _psdFileSection;
         private ValidationMethods _validationMethods;
+        private bool _isAutoClose;
 
         // private string filepath;
         private int _index = 0;
@@ -173,6 +174,96 @@ namespace ILS_TEST_V1.View
             }
             return result;
         }
+
+        internal void Setup(ValidatePsdFileVM vm, bool isAutoClose = true)
+        {
+            
+
+            this._isAutoClose = isAutoClose;
+            if (vm.ILS_Type == ILSType.Code1_NC)
+            {
+                rbtn1.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code2_JC)
+            {
+                rbtn2.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code3_CE)
+            {
+                rbtn3.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code4_ET)
+            {
+                rbtn4.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code5_MimeticDiagram)
+            {
+                rbtn5.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code6_CrossRoadPoint3D)
+            {
+                rbtn6.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code7_RestAreaSummaryMap_Mapy)
+            {
+                rbtn7.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code8_RestAreaSummaryMap_Gini)
+            {
+                rbtn8.Checked = true;
+            }
+            filePath.Text = vm.FileName;
+            _validatePsdFileVM = vm;
+        }
+        /*
+        public void Setup(ValidatePsdFileVM vm, string folderPath, bool isFilterByArrow, bool isAutoClose = true, bool isExportLayerList = true)
+        {
+            this._isAutoClose = isAutoClose;
+            if (isExportLayerList)
+            {
+                this._isExportLayerList = isExportLayerList;
+                this._exportFilePath = folderPath;
+                this._isFilterByArrow = isFilterByArrow;
+            }
+
+            if (vm.ILS_Type == ILSType.Code1_NC)
+            {
+                rdoILSType1.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code2_JC)
+            {
+                rdoILSType2.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code3_CE)
+            {
+                rdoILSType3.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code4_ET)
+            {
+                rdoILSType4.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code5_MimeticDiagram)
+            {
+                rdoILSType5.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code6_CrossRoadPoint3D)
+            {
+                rdoILSType6.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code7_RestAreaSummaryMap_Mapy)
+            {
+                rdoILSType7.Checked = true;
+            }
+            if (vm.ILS_Type == ILSType.Code8_RestAreaSummaryMap_Gini)
+            {
+                rdoILSType8.Checked = true;
+            }
+
+            txtPsdFullPath.Text = vm.FileName;
+            _validatePsdFileVM = vm;
+        }
+        */
+
 
         // 파라미터 있는 생성자 생성 ( 2020.02.24 민병호 )
         public PsdFileTest(string filepath)
@@ -379,32 +470,41 @@ namespace ILS_TEST_V1.View
                 }
             }
 
-            // 72 * 72 이런식으로 들어가 있을 것
-            FilePixel.Text = min_sb1.ToString();
-
-
-            //2020.02.27  파일 정보 텍스트 박스 값 입력
-            FileNameBox.Text = Path.GetFileNameWithoutExtension(filePath);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
-            FileExtensionName.Text = Path.GetExtension(filePath);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
-            FileHeight.Text = doc.Height.ToString();
-            FileWidth.Text = doc.Width.ToString();
-            FileDepth.Text = doc.Depth.ToString();
-            FileColorMode.Text = doc.FileHeaderSection.ColorMode.ToString();
-            FileDepth.Text = doc.FileHeaderSection.Depth.ToString();
-            FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();
-
-            
+            // psdFileVM 요소 등록( 2020/04/23 민병호 )
+            FileInfo fileInfo = new FileInfo(filePath);
+            _psdFile.Name = fileInfo.Name.Split('.')[0];
+            _psdFile.Extension = fileInfo.Extension;
 
             var imageSource11 = doc as IImageSource;
             var iproperties = imageSource11 as IProperties;
-            
+
             List<string> tmp = new List<string>();
             foreach (var channel in imageSource11.Channels)
             {
                 tmp.Add(channel.Type.ToString());
             }
-            string tmpChannelType = string.Join( " / ", tmp );
+            string tmpChannelType = string.Join(" / ", tmp);
             FileChannelType.Text = tmpChannelType;
+
+            // PsdFileSectionVM 요소 등록 ( 2020/04/23 민병호 )
+            _psdFileSection.NumberOfChannels = doc.FileHeaderSection.NumberOfChannels;
+            _psdFileSection.Width = doc.Width;
+            _psdFileSection.Height = doc.Height;
+            _psdFileSection.Depth = doc.FileHeaderSection.Depth;
+            _psdFileSection.ColorMode = doc.FileHeaderSection.ColorMode.ToString();
+            _psdFileSection.ChannelTypes = tmpChannelType;
+            _psdFileSection.Pixel = min_sb1.ToString();
+
+            FileDepth.Text = doc.Depth.ToString();
+
+            // TextBox에 요소 넣는 메소드( 2020/04/23 민병호 )
+            setTxtBox(filePath, doc, min_sb1);
+
+            /*
+                요소 들어갔나 확인
+            _psdFile.ComponentPrint();
+            _psdFileSection.Componentprint();
+            */
 
             /*
             //2020.02.27 채널 개수에 따른 채널 타입 추출 (박찬규)
@@ -420,6 +520,23 @@ namespace ILS_TEST_V1.View
             FileChannelType.Text = TypeTemp;
             */
         }
+
+        public void setTxtBox(string path, PsdDocument doc, StringBuilder sb)
+        {
+            //2020.02.27  파일 정보 텍스트 박스 값 입력
+            FileNameBox.Text = Path.GetFileNameWithoutExtension(path);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
+            FileExtensionName.Text = Path.GetExtension(path);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
+
+            FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();
+            FileWidth.Text = doc.Width.ToString();
+            FileHeight.Text = doc.Height.ToString();
+            FileDepth.Text = doc.FileHeaderSection.Depth.ToString();
+            FileColorMode.Text = doc.FileHeaderSection.ColorMode.ToString();
+
+            // 72 * 72 이런식으로 들어가 있을 것
+            FilePixel.Text = sb.ToString();
+        }
+
 
         // 원본 소스에서의 필요 메소드( 분석은 아직 못함 2020/04/08 민병호 )
         public static string ToBin(int value, int len)

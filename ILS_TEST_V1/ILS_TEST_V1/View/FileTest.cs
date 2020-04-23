@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ILS_TEST_V1.Model;
 
 namespace ILS_TEST_V1
 {
@@ -45,9 +46,16 @@ namespace ILS_TEST_V1
             dlg.Show();
         }
 
+        // double click 이벤트( 파일검증으로 넘어갈 때 자동으로 검증하도록 넘기기 위한 메소드, 2020/04/20 민병호 )
         private void gridVerify_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            // 한개만 잡혔을 때로 한정
+            if (gridVerify.SelectedRows.Count != 1) return;
+            var x = gridVerify.SelectedRows[0].DataBoundItem as ValidatePsdFileVM;
 
+            var dialog = new PsdFileTest();
+            dialog.Setup(x, false);
+            dialog.Show(this);
         }
 
 

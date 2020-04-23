@@ -17,5 +17,15 @@ namespace ILS_TEST_V1.Model
         public string ChannelTypes { get; set; }
         public string Pixel { get; set; }
 
+        public void Componentprint()
+        {
+            Console.WriteLine("NumberOfChannels : {0}, Width: {1}, Heigth: {2}, Depth: {3}, ColorMode: {4}, ChannelTypes: {5}, Pixel: {6}",
+                NumberOfChannels, Width, Height, Depth, ColorMode, ChannelTypes, Pixel);
+        }
+
     }
+
+    
+
+
 }
