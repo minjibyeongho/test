@@ -15,5 +15,15 @@ namespace ILS_TEST_V1.Model
         public int Success { get; set; }
         public int Fail { get; set; }
         public string Description { get; set; }
+
+
+        public void logPrint()
+        {
+            Console.WriteLine(
+                   "Index : {0}, FileName : {1}, ILS_Type : {2}, TotalCount : {3}, Success : {4}, Fail : {5}, Descrption : {6}",
+                   Index, FileName, ILS_Type, TotalCount, Success, Fail, Description
+            );
+        }
+
     }
 }

@@ -68,9 +68,10 @@
             this.gridVerify.Name = "gridVerify";
             this.gridVerify.ReadOnly = true;
             this.gridVerify.RowTemplate.Height = 23;
+            this.gridVerify.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridVerify.Size = new System.Drawing.Size(871, 427);
             this.gridVerify.TabIndex = 2;
-            this.gridVerify.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridVerify_CellDoubleClick);
+            this.gridVerify.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridVerify_CellMouseDoubleClick);
             // 
             // btnListPrint
             // 

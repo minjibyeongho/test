@@ -41,6 +41,9 @@ namespace ILS_TEST_V1.View
             InitializeComponent();
             InitControls();
 
+            dataGridView1.AllowUserToAddRows = false;
+            gridValidCode.AllowUserToAddRows = false;
+            dataGridView3.AllowUserToAddRows = false;
         }
 
         private void InitControls()
@@ -177,8 +180,6 @@ namespace ILS_TEST_V1.View
 
         internal void Setup(ValidatePsdFileVM vm, bool isAutoClose = true)
         {
-            
-
             this._isAutoClose = isAutoClose;
             if (vm.ILS_Type == ILSType.Code1_NC)
             {
@@ -264,7 +265,7 @@ namespace ILS_TEST_V1.View
         }
         */
 
-
+        /*
         // 파라미터 있는 생성자 생성 ( 2020.02.24 민병호 )
         public PsdFileTest(string filepath)
         {
@@ -277,6 +278,7 @@ namespace ILS_TEST_V1.View
             gridValidCode.AllowUserToAddRows = false;
             dataGridView3.AllowUserToAddRows = false;
         }
+        */
 
         // dataGridView1 데이터그리드뷰 이름
 

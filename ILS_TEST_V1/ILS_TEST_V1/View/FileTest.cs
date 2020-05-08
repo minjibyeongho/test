@@ -16,6 +16,7 @@ namespace ILS_TEST_V1
 {
     public partial class FileTest : Form
     {
+        BindingList<ValidatePsdFileVM> _dataSouce = null;
         public FileTest()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace ILS_TEST_V1
             gridVerify.AllowUserToAddRows = false;
 
             //2020.02.24 gridVerify 더블클릭시 이벤트 생성 (박찬규)
-            gridVerify.CellMouseDoubleClick += gridVerify_CellMouseDoubleClick;
+            //gridVerify.CellMouseDoubleClick += gridVerify_CellMouseDoubleClick;
         }
 
 
@@ -34,6 +35,10 @@ namespace ILS_TEST_V1
             FileSearch();
         }
 
+        // double click 메소드 2개 존재로 꼬임; 2020/05/07 한개 제거 
+        // PsdFileTest의 파라미터 있는 생성자를 제거하고 Setup 메소드를 활용하여 셋팅( 코드 단순화 )
+
+        /*
         //2020.02.24 gridVerify 더블클릭시 PsdFileTest 다이얼로그 발생 (박찬규)
         void gridVerify_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -45,9 +50,10 @@ namespace ILS_TEST_V1
             PsdFileTest dlg = new PsdFileTest(filePath);
             dlg.Show();
         }
+        */
 
         // double click 이벤트( 파일검증으로 넘어갈 때 자동으로 검증하도록 넘기기 위한 메소드, 2020/04/20 민병호 )
-        private void gridVerify_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        void gridVerify_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             // 한개만 잡혔을 때로 한정
             if (gridVerify.SelectedRows.Count != 1) return;
@@ -58,9 +64,11 @@ namespace ILS_TEST_V1
             dialog.Show(this);
         }
 
-
         private void FileSearch()
         {
+            // 폴더 선택 시 bindingList 생성 2020/05/07 민병호
+            _dataSouce = new BindingList<ValidatePsdFileVM>();
+
             var fbd = new FolderBrowserDialog();
             var result = fbd.ShowDialog();
 
@@ -79,6 +87,7 @@ namespace ILS_TEST_V1
             var selectPath = txtFolderPath.Text;
             var files = Directory.GetFiles(selectPath, "*.psd", SearchOption.AllDirectories);
 
+            /*
             //DataGridView 열에 데이터 넣기(최정웅 박찬규)
             #region PSD FILE LIST
             gridVerify.ColumnCount = 6;
@@ -92,21 +101,44 @@ namespace ILS_TEST_V1
 
             //gridVerify.Columns.Add("FileName", "FileName"); 
             #endregion
-           
+           */
 
             //DataGridView 행에 값 넣는 곳 (최정웅 , 박찬규)
             //순번 표기를 위한 Index 변수 추가(박찬규)
             #region PSD FILE Data
             int Index = 0;
 
+            ValidatePsdFileVM tmpVPFVM = null;
+
             foreach (var file in files)
             {
+                tmpVPFVM = new ValidatePsdFileVM();
+
                 ++Index;
-                var doc = PsdDocument.Create(file);
-                var ILStype = GetILSType(file);
-                gridVerify.Rows.Add(Index, file,ILStype);
+                // var doc = PsdDocument.Create(file);
+                var ILS_type = GetILSType(file);
+                if(ILS_type == null)
+                {
+                    tmpVPFVM.Description = "파일명 오류";
+                }
+
+                FileInfo fi = new FileInfo(file);
+
+                #region ValidatePsdFileVM에 값 넣는 부분
+                tmpVPFVM.Index = Index;
+                tmpVPFVM.FileName = fi.FullName;
+                tmpVPFVM.ILS_Type = ILS_type;
+                tmpVPFVM.TotalCount = 0;
+                tmpVPFVM.Fail = 0;
+                tmpVPFVM.Success = 0;
+                #endregion
+                // gridVerify.Rows.Add(Index, file,ILStype);
+
+                _dataSouce.Add(tmpVPFVM);
             }
             #endregion
+
+            gridVerify.DataSource = _dataSouce;
 
             //각 열의 데이터에 맞게 자동으로 사이즈 조절 기능 추가 (박찬규)
             gridVerify.AutoResizeColumns();
@@ -184,6 +216,7 @@ namespace ILS_TEST_V1
             }
             return null;
         }
-       
+
+        
     }
 }
