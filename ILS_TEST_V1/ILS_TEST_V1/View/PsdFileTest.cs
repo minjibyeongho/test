@@ -23,7 +23,7 @@ namespace ILS_TEST_V1.View
     {
         BindingList<IPsdLayer> layerAdd = new BindingList<IPsdLayer>(); //총 레이어를 담기위한 BindingList (2020.03.17 최정웅)
         BindingList<layerModel> gridlist = new BindingList<layerModel>();   // 레이어의 정보를 담은 BindingList ( 2020.03.17 민병호 )
-        
+
         // 원본 코드
         private IList<ValidateVM> _fullValidCodeList; // 오류검증 list( 2020.04.20 민병호 )
         private ValidatePsdFileVM _validatePsdFileVM;
@@ -31,6 +31,7 @@ namespace ILS_TEST_V1.View
         private PsdFileSectionVM _psdFileSection;
         private ValidationMethods _validationMethods;
         private bool _isAutoClose;
+        private string _errorStringReadFile;
 
         // private string filepath;
         private int _index = 0;
@@ -43,7 +44,7 @@ namespace ILS_TEST_V1.View
 
             dataGridView1.AllowUserToAddRows = false;
             gridValidCode.AllowUserToAddRows = false;
-            dataGridView3.AllowUserToAddRows = false;
+            gridErrorMsg.AllowUserToAddRows = false;
         }
 
         private void InitControls()
@@ -53,10 +54,18 @@ namespace ILS_TEST_V1.View
 
             _validationMethods = new ValidationMethods();
             _validationMethods.Reset();
-            InitGrid(gridValidCode);
 
+            InitGrid(dataGridView1);
+            InitGrid(gridValidCode);
+            InitGrid(gridErrorMsg);
+
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             gridValidCode.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            gridErrorMsg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
+            dataGridView1.DataSource = _validationMethods.DSPsdLayerVMList;
             gridValidCode.DataSource = _validationMethods.DsValidCodeList;
+            gridErrorMsg.DataSource = _validationMethods.DsErrorMsgList;
 
             var columnName = string.Empty;
             {
@@ -100,6 +109,55 @@ namespace ILS_TEST_V1.View
             g.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
+        //private void ShowLog(string msg)
+        //{
+            //tsslLog.Text = string.Format("{0:yyyy/MM/dd hh:mm:ss} {1}", DateTime.Now, msg);
+        //}
+
+
+        private void btnVerify_Click(object sender, EventArgs e)
+        {
+            //ShowLog("Begin Validation");
+
+            _validationMethods.Reset();
+            gridValidCode.Refresh();
+            //try
+            //{
+            HashSet<string> set;
+            var ilsType = GetSelectedILSType(out set);
+            _validationMethods.Run(ilsType, _psdFile, _psdFileSection);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
+
+
+            gridValidCode.Refresh();
+            //ShowLog("End Validation");
+
+
+            if (_validatePsdFileVM != null)
+            {
+                var totalCount = _validationMethods.DsValidCodeList.Count;
+                var sCount = 0;
+                foreach (var x in _validationMethods.DsValidCodeList)
+                    if (x.ResultState == ResultType.Success)
+                        sCount++;
+
+                if (string.IsNullOrWhiteSpace(_errorStringReadFile))
+                {
+                    _validatePsdFileVM.Success = sCount;
+                    _validatePsdFileVM.TotalCount = totalCount;
+                    _validatePsdFileVM.Fail = totalCount - sCount;
+                }
+                else
+                    _validatePsdFileVM.Description = _errorStringReadFile;
+
+                if (_isAutoClose)
+                    this.Close();
+            }
+        }
 
         void rbtnLSType_CheckedChanged(object sender, EventArgs e)
         {
@@ -373,6 +431,8 @@ namespace ILS_TEST_V1.View
         // layer 카운트, parent layer카운트 및 레이어별 속성 list add 수정중임 (2020.03.17 최정웅)
         public void ReadFile(string filename)
         {
+            gridlist.Clear();
+
             var doc = PsdDocument.Create(filePath.Text);
 
             // 처음 layer 읽기 시작하는 부분
@@ -412,10 +472,21 @@ namespace ILS_TEST_V1.View
 
                 foreach (var z in subLayerList)
                 {
-                    var parentIndex = gridlist.Where(x => x.Index > z.Index).OrderByDescending(x => x.Index).Min(x => x.Index);
+                    //var parentIndex = gridlist.Where(x => x.Index > z.Index).OrderByDescending(x => x.Index).Min(x => x.Index);
+                    var parentIndex = gridlist.Where(x => x.Index > z.Index && x.LayerDepth == z.LayerDepth - 1).Min(x => x.Index);
                     z.ParentIndex = parentIndex;
                 }
             }
+
+            #region DSPsdLayerVMList Add부분(에러검증할 때 사용할 LIST에 추가)
+            var list = gridlist;
+            foreach (var x in list)
+            {
+                _validationMethods.DSPsdLayerVMList.Add(x);
+            }
+            #endregion
+
+            doc.Dispose();
         }
 
 
@@ -438,10 +509,10 @@ namespace ILS_TEST_V1.View
 
             // bindingList가 모두 add된 상태
             dataGridView1.DataSource = gridlist;
-
         }
 
-        //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
+
+         //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
         private void FileInformaion(string filePath)
         {
             var doc = PsdDocument.Create(filePath);
@@ -649,5 +720,44 @@ namespace ILS_TEST_V1.View
                 GC.Collect();   // 가비지 수집
             }
         }
+
+        private void PsdFileTest_Load(object sender, EventArgs e)
+        {
+            //기존ILS의 OpenPsd() 참고
+
+            //this.Enabled = false;
+            //var bw = new BackgroundWorker();
+            //bw.DoWork += (a, b) =>
+            //{
+            //};
+            //bw.RunWorkerCompleted += (a, b) =>
+            //{
+            //this.Enabled = true;
+            //if (this._validatePsdFileVM != null)
+            //{
+            //btnVerify.PerformClick();
+
+            //}
+            //};
+            //bw.RunWorkerAsync();
+
+            btnVerify.PerformClick();
+
+            if (this._isAutoClose)
+            {
+                this.Visible = false;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                this.Width = 0;
+                this.Height = 0;
+                //this.Text = "";
+                this.ControlBox = false;
+                //this.ShowInTaskbar = false;
+            }
+
+            
+        }
+
+
+
     }
 }

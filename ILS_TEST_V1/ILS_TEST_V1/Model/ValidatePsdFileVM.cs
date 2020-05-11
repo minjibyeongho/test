@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ILS_TEST_V1.Model
 {
-    public class ValidatePsdFileVM
+    public class ValidatePsdFileVM : ModelBase<ValidatePsdFileVM>
     {
         public int Index { get; set; }
         public string FileName { get; set; }

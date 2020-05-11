@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PsdFileTest));
             this.filePath = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -53,8 +54,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.ExcellPrint = new System.Windows.Forms.Button();
             this.gridValidCode = new System.Windows.Forms.DataGridView();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.button4 = new System.Windows.Forms.Button();
+            this.gridErrorMsg = new System.Windows.Forms.DataGridView();
+            this.btnVerify = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
@@ -69,14 +70,17 @@
             this.rbtn3 = new System.Windows.Forms.RadioButton();
             this.rbtn2 = new System.Windows.Forms.RadioButton();
             this.rbtn1 = new System.Windows.Forms.RadioButton();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmCopySelectedLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridValidCode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridErrorMsg)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // filePath
@@ -299,27 +303,28 @@
             this.gridValidCode.Size = new System.Drawing.Size(538, 191);
             this.gridValidCode.TabIndex = 25;
             // 
-            // dataGridView3
+            // gridErrorMsg
             // 
-            this.dataGridView3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gridErrorMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(12, 20);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowTemplate.Height = 23;
-            this.dataGridView3.Size = new System.Drawing.Size(570, 190);
-            this.dataGridView3.TabIndex = 26;
+            this.gridErrorMsg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridErrorMsg.Location = new System.Drawing.Point(12, 20);
+            this.gridErrorMsg.Name = "gridErrorMsg";
+            this.gridErrorMsg.RowTemplate.Height = 23;
+            this.gridErrorMsg.Size = new System.Drawing.Size(570, 190);
+            this.gridErrorMsg.TabIndex = 26;
             // 
-            // button4
+            // btnVerify
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(1015, 725);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(153, 36);
-            this.button4.TabIndex = 27;
-            this.button4.Text = "검증 시작";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnVerify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVerify.Location = new System.Drawing.Point(1015, 725);
+            this.btnVerify.Name = "btnVerify";
+            this.btnVerify.Size = new System.Drawing.Size(153, 36);
+            this.btnVerify.TabIndex = 27;
+            this.btnVerify.Text = "검증 시작";
+            this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
             // groupBox3
             // 
@@ -338,7 +343,7 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.dataGridView3);
+            this.groupBox4.Controls.Add(this.gridErrorMsg);
             this.groupBox4.Location = new System.Drawing.Point(601, 476);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(590, 225);
@@ -506,6 +511,19 @@
             this.rbtn1.Text = "일반교차로(NC)";
             this.rbtn1.UseVisualStyleBackColor = true;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmCopySelectedLayer});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 48);
+            // 
+            // tsmCopySelectedLayer
+            // 
+            this.tsmCopySelectedLayer.Name = "tsmCopySelectedLayer";
+            this.tsmCopySelectedLayer.Size = new System.Drawing.Size(182, 22);
+            this.tsmCopySelectedLayer.Text = "toolStripMenuItem1";
+            // 
             // PsdFileTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -515,15 +533,16 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnVerify);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PsdFileTest";
             this.Text = "PSD 파일 검증";
+            this.Load += new System.EventHandler(this.PsdFileTest_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridValidCode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridErrorMsg)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -531,6 +550,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -561,8 +581,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button ExcellPrint;
         private System.Windows.Forms.DataGridView gridValidCode;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGridView gridErrorMsg;
+        private System.Windows.Forms.Button btnVerify;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
@@ -577,5 +597,7 @@
         private System.Windows.Forms.RadioButton rbtn3;
         private System.Windows.Forms.RadioButton rbtn2;
         private System.Windows.Forms.RadioButton rbtn1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tsmCopySelectedLayer;
     }
 }

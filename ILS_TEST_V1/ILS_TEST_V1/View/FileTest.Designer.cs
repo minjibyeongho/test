@@ -92,6 +92,7 @@
             this.btnVerify.TabIndex = 4;
             this.btnVerify.Text = "검증";
             this.btnVerify.UseVisualStyleBackColor = true;
+            this.btnVerify.Click += new System.EventHandler(this.btnVerify_Click);
             // 
             // FileTest
             // 

@@ -64,6 +64,7 @@ namespace ILS_TEST_V1
             dialog.Show(this);
         }
 
+
         private void FileSearch()
         {
             // 폴더 선택 시 bindingList 생성 2020/05/07 민병호
@@ -217,6 +218,24 @@ namespace ILS_TEST_V1
             return null;
         }
 
-        
+        private void btnVerify_Click(object sender, EventArgs e)
+        {
+            foreach (var row in gridVerify.Rows.OfType<DataGridViewRow>())
+            {
+                var dlg = new PsdFileTest();
+                // row.Selected = true;
+                gridVerify.CurrentCell = row.Cells[0];
+
+                var x = row.DataBoundItem as ValidatePsdFileVM;
+                if (x.ILS_Type == null)
+                    continue;
+
+                dlg.Setup(x);
+                dlg.ShowDialog();
+                //dlg.Show();
+            }
+            gridVerify.CurrentCell = null;
+        }
+
     }
 }

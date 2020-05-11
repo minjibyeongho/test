@@ -100,5 +100,10 @@ namespace ILS_TEST_V1.Model
         public string VerticalResUnit { get; set; }
         [Category("Resolution")]
         public string HeightUnit { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} | {1} | {2} | {3} | {4}", Index, ParentIndex, LayerDepth, LayerSeq, Name);
+        }
     }
 }
