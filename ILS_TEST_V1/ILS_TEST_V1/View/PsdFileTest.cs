@@ -760,17 +760,17 @@ namespace ILS_TEST_V1.View
             };
             bw.RunWorkerCompleted += (a, b) =>
             {
-                //this.Enabled = true;
+                this.Enabled = true;
                 //var errorMsg = "이미지 컬러 모드가 RGB가 아닙니다";
                 //if (_isAutoClose)
                 //{
-                    //_validatePsdFileVM.Description = errorMsg;
-                    //this.Close();
+                //_validatePsdFileVM.Description = errorMsg;
+                //this.Close();
                 //}
                 //else
                 //{
-                    //MessageBox.Show(errorMsg);
-                    //return;
+                //MessageBox.Show(errorMsg);
+                //return;
                 //}
 
                 var list = gridlist;
