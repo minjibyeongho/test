@@ -111,7 +111,7 @@ namespace ILS_TEST_V1.View
 
         //private void ShowLog(string msg)
         //{
-            //tsslLog.Text = string.Format("{0:yyyy/MM/dd hh:mm:ss} {1}", DateTime.Now, msg);
+        //tsslLog.Text = string.Format("{0:yyyy/MM/dd hh:mm:ss} {1}", DateTime.Now, msg);
         //}
 
 
@@ -341,7 +341,7 @@ namespace ILS_TEST_V1.View
         // dataGridView1 데이터그리드뷰 이름
 
         //child 레이어 list add, 재귀함수 ( 2020.03.17 최정웅)
-        private void GetLayer(IPsdLayer layer,int layerDepth, int layerSeq)
+        private void GetLayer(IPsdLayer layer, int layerDepth, int layerSeq)
         {
             Console.WriteLine(layer);
             Console.WriteLine("index: {0}, layerDepth: {1}, layerSeq: {2}", _index, layerDepth, layerSeq);
@@ -418,7 +418,7 @@ namespace ILS_TEST_V1.View
 
             gridlist.Add(tmpVm);
             // bindingList에 담는다.
-            layerAdd.Add(layer);
+            //layerAdd.Add(layer);
 
             var childSeq = 1;
             foreach (var y in layer.Childs.Reverse()) //IPsdLayer는 첫번째 child가 최상위 폴더가 아닌 그하위 폴더 즉 ETC1 이런거가 나옴 그래서 최상위 폴더가 안나오는 것임.
@@ -477,13 +477,12 @@ namespace ILS_TEST_V1.View
                     z.ParentIndex = parentIndex;
                 }
             }
-
             #region DSPsdLayerVMList Add부분(에러검증할 때 사용할 LIST에 추가)
-            var list = gridlist;
-            foreach (var x in list)
-            {
-                _validationMethods.DSPsdLayerVMList.Add(x);
-            }
+            //var list = gridlist;
+            //foreach (var x in list)
+            //{
+            //_validationMethods.DSPsdLayerVMList.Add(x);
+            //}
             #endregion
 
             doc.Dispose();
@@ -502,7 +501,7 @@ namespace ILS_TEST_V1.View
             // PSD Library 활용
 
             //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
-            FileInformaion(filePath.Text);
+            //FileInformaion(filePath.Text);
 
             // layer 정보를 읽어온다
             ReadFile(filePath.Text);
@@ -512,7 +511,7 @@ namespace ILS_TEST_V1.View
         }
 
 
-         //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
+        //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
         private void FileInformaion(string filePath)
         {
             var doc = PsdDocument.Create(filePath);
@@ -525,8 +524,8 @@ namespace ILS_TEST_V1.View
             // 현재 상황 : properties에 pixel정보 들어가 있음
             // 2020/04/08 Linq로 select 가능한지 확인( 코드 수를 줄일 수 있는 방안이 될 것.. )
             StringBuilder min_sb1 = new StringBuilder();
-            
-            foreach (var item in properties )
+
+            foreach (var item in properties)
             {
                 // Console.WriteLine("#######속성뽑기");
                 var key = item.Key;
@@ -557,7 +556,9 @@ namespace ILS_TEST_V1.View
                 tmp.Add(channel.Type.ToString());
             }
             string tmpChannelType = string.Join(" / ", tmp);
-            FileChannelType.Text = tmpChannelType;
+
+            BeginInvoke((MethodInvoker)(() => { FileChannelType.Text = tmpChannelType; }));
+            //FileChannelType.Text = tmpChannelType;
 
             // PsdFileSectionVM 요소 등록 ( 2020/04/23 민병호 )
             _psdFileSection.NumberOfChannels = doc.FileHeaderSection.NumberOfChannels;
@@ -568,7 +569,9 @@ namespace ILS_TEST_V1.View
             _psdFileSection.ChannelTypes = tmpChannelType;
             _psdFileSection.Pixel = min_sb1.ToString();
 
-            FileDepth.Text = doc.Depth.ToString();
+            BeginInvoke((MethodInvoker)(() => { FileDepth.Text = doc.Depth.ToString(); }));
+            //FileDepth.Text = doc.Depth.ToString();
+
 
             // TextBox에 요소 넣는 메소드( 2020/04/23 민병호 )
             setTxtBox(filePath, doc, min_sb1);
@@ -592,22 +595,27 @@ namespace ILS_TEST_V1.View
             }
             FileChannelType.Text = TypeTemp;
             */
+
+            doc.Dispose();
         }
 
         public void setTxtBox(string path, PsdDocument doc, StringBuilder sb)
         {
-            //2020.02.27  파일 정보 텍스트 박스 값 입력
-            FileNameBox.Text = Path.GetFileNameWithoutExtension(path);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
-            FileExtensionName.Text = Path.GetExtension(path);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
+            BeginInvoke((MethodInvoker)(() =>
+            {
+                //2020.02.27  파일 정보 텍스트 박스 값 입력
+                FileNameBox.Text = Path.GetFileNameWithoutExtension(path);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
+                FileExtensionName.Text = Path.GetExtension(path);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
 
-            FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();
-            FileWidth.Text = doc.Width.ToString();
-            FileHeight.Text = doc.Height.ToString();
-            FileDepth.Text = doc.FileHeaderSection.Depth.ToString();
-            FileColorMode.Text = doc.FileHeaderSection.ColorMode.ToString();
+                FileChannelCount.Text = doc.FileHeaderSection.NumberOfChannels.ToString();
+                FileWidth.Text = doc.Width.ToString();
+                FileHeight.Text = doc.Height.ToString();
+                FileDepth.Text = doc.FileHeaderSection.Depth.ToString();
+                FileColorMode.Text = doc.FileHeaderSection.ColorMode.ToString();
 
-            // 72 * 72 이런식으로 들어가 있을 것
-            FilePixel.Text = sb.ToString();
+                // 72 * 72 이런식으로 들어가 있을 것
+                FilePixel.Text = sb.ToString();
+            }));
         }
 
 
@@ -650,7 +658,7 @@ namespace ILS_TEST_V1.View
             // ( layerModel에서 category, description에 설정된 값들을 읽어서 propertygrid에 표출해준다 )
             propertyGrid1.SelectedObject = item;
         }
-        
+
         //2020.04.10 pcg  엑셀출력 이벤트 관련 내용
         static Excel.Application excelApp = null;
         static Excel.Workbook workBook = null;
@@ -661,7 +669,7 @@ namespace ILS_TEST_V1.View
             try
             {
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  // 바탕화면 경로(우선 바탕화면에 경로 잡아놈!!)
-                string path = Path.Combine(desktopPath, FileNameBox.Text + "_"+System.DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss ")+".xlsx"); // 엑셀 파일 저장 경로(우선 파일명으로 작업함)
+                string path = Path.Combine(desktopPath, FileNameBox.Text + "_" + System.DateTime.Now.ToString("yyyy_MM_dd_hh_mm_ss ") + ".xlsx"); // 엑셀 파일 저장 경로(우선 파일명으로 작업함)
 
                 excelApp = new Excel.Application();                             // 엑셀 어플리케이션 생성
                 workBook = excelApp.Workbooks.Add();                            // 워크북 추가
@@ -681,7 +689,7 @@ namespace ILS_TEST_V1.View
                     {
                         workSheet.Cells[r + 2, i + 1] = dataGridView1.Rows[r].Cells[i].Value;
                     }
-                }   
+                }
 
                 workSheet.Columns.AutoFit();                                    // 열 너비 자동 맞춤
                 workBook.SaveAs(path, Excel.XlFileFormat.xlWorkbookDefault);    // 엑셀 파일 저장
@@ -724,25 +732,6 @@ namespace ILS_TEST_V1.View
         private void PsdFileTest_Load(object sender, EventArgs e)
         {
             //기존ILS의 OpenPsd() 참고
-
-            //this.Enabled = false;
-            //var bw = new BackgroundWorker();
-            //bw.DoWork += (a, b) =>
-            //{
-            //};
-            //bw.RunWorkerCompleted += (a, b) =>
-            //{
-            //this.Enabled = true;
-            //if (this._validatePsdFileVM != null)
-            //{
-            //btnVerify.PerformClick();
-
-            //}
-            //};
-            //bw.RunWorkerAsync();
-
-            btnVerify.PerformClick();
-
             if (this._isAutoClose)
             {
                 this.Visible = false;
@@ -754,10 +743,52 @@ namespace ILS_TEST_V1.View
                 //this.ShowInTaskbar = false;
             }
 
-            
+            _validationMethods.DSPsdLayerVMList.Clear();
+
+            this.Enabled = false;
+            var bw = new BackgroundWorker();
+            bw.DoWork += (a, b) =>
+            {
+                try
+                {
+                    FileInformaion(filePath.Text);
+                }
+                catch (Exception ex)
+                {
+                    _errorStringReadFile = ex.ToString();
+                }
+            };
+            bw.RunWorkerCompleted += (a, b) =>
+            {
+                //this.Enabled = true;
+                //var errorMsg = "이미지 컬러 모드가 RGB가 아닙니다";
+                //if (_isAutoClose)
+                //{
+                    //_validatePsdFileVM.Description = errorMsg;
+                    //this.Close();
+                //}
+                //else
+                //{
+                    //MessageBox.Show(errorMsg);
+                    //return;
+                //}
+
+                var list = gridlist;
+                foreach (var x in list)
+                {
+                    _validationMethods.DSPsdLayerVMList.Add(x);
+                }
+
+                if (this._validatePsdFileVM != null)
+                {
+                    btnVerify.PerformClick();
+                }
+            };
+            bw.RunWorkerAsync();
         }
 
 
 
     }
 }
+
