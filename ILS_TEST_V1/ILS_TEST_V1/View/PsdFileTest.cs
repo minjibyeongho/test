@@ -534,7 +534,7 @@ namespace ILS_TEST_V1.View
                 if ("HorizontalRes".Equals(item.Key))
                 {
                     min_sb1.Append(item.Value);
-                    min_sb1.Append(" * ");
+                    min_sb1.Append("*");
                 }
 
                 if ("VerticalRes".Equals(item.Key))
@@ -617,6 +617,43 @@ namespace ILS_TEST_V1.View
 
                 // 72 * 72 이런식으로 들어가 있을 것
                 FilePixel.Text = sb.ToString();
+
+                #region 맵피, 지니에 해당하는 파일 pixcel이 모바일 pixcel일 경우.
+                var pixel = sb.ToString();
+                if (pixel != "72*72")
+                {
+                    if (pixel == "146*146")
+                    {
+                        FilePixel.Text = pixel;
+                        if (_isAutoClose)
+                        {
+                            _validatePsdFileVM.Description = "모바일 Pixel";
+                            //this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("모바일 Pixel");
+                        }
+                    }
+                    else
+                    {
+                        var errorMsg = "픽셀 값 오류";
+                        FilePixel.Text = pixel;
+                        errorProvider1.SetError(FilePixel, errorMsg);
+                        if (_isAutoClose)
+                        {
+                            _validatePsdFileVM.Description = errorMsg;
+                            //this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show(errorMsg);
+                            return;
+                        }
+                    }
+                }
+                #endregion
+
             }));
         }
 
@@ -745,30 +782,30 @@ namespace ILS_TEST_V1.View
                 //this.ShowInTaskbar = false;
             }
 
-            //var psdFullPath = filePath.Text;
-            //if (File.Exists(psdFullPath) == false)
-            //{
-                //return;
-            //}
-            //var fileInfo = new FileInfo(psdFullPath);
-            //var fileName = fileInfo.Name;
+            var psdFullPath = filePath.Text;
+            if (File.Exists(psdFullPath) == false)
+            {
+                return;
+            }
+            var fileInfo = new FileInfo(psdFullPath);
+            var fileName = fileInfo.Name;
 
-            //var pos = fileInfo.Name.LastIndexOf(".");
-            //if (pos < 0)
-            //{
-                //errorProvider1.SetError(FileExtensionName, "확장자명을 찾을 수 없습니다.");
-                //return;
-            //}
+            var pos = fileInfo.Name.LastIndexOf(".");
+            if (pos < 0)
+            {
+                errorProvider1.SetError(FileExtensionName, "확장자명을 찾을 수 없습니다.");
+                return;
+            }
 
-            //_psdFile.Name = fileInfo.Name.Substring(0, pos);
-            //_psdFile.Extension = fileInfo.Name.Substring(pos + 1);
+            _psdFile.Name = fileInfo.Name.Substring(0, pos);
+            _psdFile.Extension = fileInfo.Name.Substring(pos + 1);
 
-            //if (_psdFile.Extension.Equals("PSD", StringComparison.InvariantCultureIgnoreCase) == false)
-            //{
-                //errorProvider1.SetError(FileExtensionName, "확장자명이 PSD가 아닙니다.");
-                //MessageBox.Show("확장자 명이 PSD가 아닙니다.");
-                //return;
-            //}
+            if (_psdFile.Extension.Equals("PSD", StringComparison.InvariantCultureIgnoreCase) == false)
+            {
+                errorProvider1.SetError(FileExtensionName, "확장자명이 PSD가 아닙니다.");
+                MessageBox.Show("확장자 명이 PSD가 아닙니다.");
+                return;
+            }
 
             _validationMethods.DSPsdLayerVMList.Clear();
 
@@ -788,17 +825,25 @@ namespace ILS_TEST_V1.View
             bw.RunWorkerCompleted += (a, b) =>
             {
                 this.Enabled = true;
-                //var errorMsg = "이미지 컬러 모드가 RGB가 아닙니다";
-                //if (_isAutoClose)
-                //{
-                    //_validatePsdFileVM.Description = errorMsg;
-                    //this.Close();
-                //}
-                //else
-                //{
-                    //MessageBox.Show(errorMsg);
-                    //return;
-                //}
+
+                errorProvider1.Clear();
+                this._psdFileSection.ColorMode = FileColorMode.Text;
+                if (FileColorMode.Text != "RGB")
+                {
+                    var errorMsg = "이미지 컬러 모드가 RGB가 아닙니다";
+                    //txtFileSectionColorMode.Text = _psdReader.FileSectionColorMode;
+                    //errorProvider1.SetError(txtFileSectionColorMode, errorMsg);
+                    if (_isAutoClose)
+                    {
+                        _validatePsdFileVM.Description = errorMsg;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(errorMsg);
+                        return;
+                    }
+                }
 
                 var list = gridlist;
                 foreach (var x in list)
