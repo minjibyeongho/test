@@ -376,6 +376,7 @@ namespace ILS_TEST_V1.View
 
 
             // Channel
+            tmpVm.ChannelCount = layer.Channels.Count(); //channel Count 추가(2020.05.12)
             var sb1 = new List<string>();
             var sb2 = new List<string>();
             var sb3 = new List<string>();
@@ -545,7 +546,8 @@ namespace ILS_TEST_V1.View
             // psdFileVM 요소 등록( 2020/04/23 민병호 )
             FileInfo fileInfo = new FileInfo(filePath);
             _psdFile.Name = fileInfo.Name.Split('.')[0];
-            _psdFile.Extension = fileInfo.Extension;
+            _psdFile.Extension = fileInfo.Extension.Split('.')[1]; //Extension은 psd로 들어가야하나 .psd로 들어가 있어서 수정함
+            //_psdFile.Extension = fileInfo.Extension; 
 
             var imageSource11 = doc as IImageSource;
             var iproperties = imageSource11 as IProperties;
@@ -743,6 +745,31 @@ namespace ILS_TEST_V1.View
                 //this.ShowInTaskbar = false;
             }
 
+            //var psdFullPath = filePath.Text;
+            //if (File.Exists(psdFullPath) == false)
+            //{
+                //return;
+            //}
+            //var fileInfo = new FileInfo(psdFullPath);
+            //var fileName = fileInfo.Name;
+
+            //var pos = fileInfo.Name.LastIndexOf(".");
+            //if (pos < 0)
+            //{
+                //errorProvider1.SetError(FileExtensionName, "확장자명을 찾을 수 없습니다.");
+                //return;
+            //}
+
+            //_psdFile.Name = fileInfo.Name.Substring(0, pos);
+            //_psdFile.Extension = fileInfo.Name.Substring(pos + 1);
+
+            //if (_psdFile.Extension.Equals("PSD", StringComparison.InvariantCultureIgnoreCase) == false)
+            //{
+                //errorProvider1.SetError(FileExtensionName, "확장자명이 PSD가 아닙니다.");
+                //MessageBox.Show("확장자 명이 PSD가 아닙니다.");
+                //return;
+            //}
+
             _validationMethods.DSPsdLayerVMList.Clear();
 
             this.Enabled = false;
@@ -764,13 +791,13 @@ namespace ILS_TEST_V1.View
                 //var errorMsg = "이미지 컬러 모드가 RGB가 아닙니다";
                 //if (_isAutoClose)
                 //{
-                //_validatePsdFileVM.Description = errorMsg;
-                //this.Close();
+                    //_validatePsdFileVM.Description = errorMsg;
+                    //this.Close();
                 //}
                 //else
                 //{
-                //MessageBox.Show(errorMsg);
-                //return;
+                    //MessageBox.Show(errorMsg);
+                    //return;
                 //}
 
                 var list = gridlist;

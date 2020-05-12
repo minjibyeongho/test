@@ -72,6 +72,7 @@
             this.rbtn1 = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmCopySelectedLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridValidCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridErrorMsg)).BeginInit();
@@ -81,6 +82,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // filePath
@@ -516,13 +518,17 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmCopySelectedLayer});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 26);
             // 
             // tsmCopySelectedLayer
             // 
             this.tsmCopySelectedLayer.Name = "tsmCopySelectedLayer";
             this.tsmCopySelectedLayer.Size = new System.Drawing.Size(182, 22);
             this.tsmCopySelectedLayer.Text = "toolStripMenuItem1";
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // PsdFileTest
             // 
@@ -551,6 +557,7 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -599,5 +606,6 @@
         private System.Windows.Forms.RadioButton rbtn1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmCopySelectedLayer;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
