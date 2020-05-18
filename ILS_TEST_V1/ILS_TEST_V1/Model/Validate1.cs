@@ -18,8 +18,6 @@ namespace ILS_TEST_V1.Model
         {
             InitCode();
 
-            
-
         }
 
         private void InitCode()

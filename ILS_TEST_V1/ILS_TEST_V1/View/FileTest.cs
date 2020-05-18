@@ -24,35 +24,21 @@ namespace ILS_TEST_V1
             //2020.03.17 gridVerify 마지막행 제거 //제거 안할 시 빈 부분 더블클릭하면 error발생하므로 (최정웅)
             gridVerify.AllowUserToAddRows = false;
 
-            //2020.02.24 gridVerify 더블클릭시 이벤트 생성 (박찬규)
-            //gridVerify.CellMouseDoubleClick += gridVerify_CellMouseDoubleClick;
         }
 
-
+        /*
+         * 2020.02.21 메서드화 작업 코드수정 (박찬규)
+         * 폴더 선택 버튼 클릭 이벤트
+         */
         private void btnFolderSelect_Click(object sender, EventArgs e)
         {
-            //2020.02.21 메서드화 작업 코드수정 (박찬규)
             FileSearch();
         }
 
-        // double click 메소드 2개 존재로 꼬임; 2020/05/07 한개 제거 
-        // PsdFileTest의 파라미터 있는 생성자를 제거하고 Setup 메소드를 활용하여 셋팅( 코드 단순화 )
-
         /*
-        //2020.02.24 gridVerify 더블클릭시 PsdFileTest 다이얼로그 발생 (박찬규)
-        void gridVerify_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            
-            int rowIndex = gridVerify.CurrentRow.Index;
-            Console.WriteLine(rowIndex);
-            var filePath = gridVerify.Rows[rowIndex].Cells[1].Value.ToString();
-            Console.WriteLine(filePath);
-            PsdFileTest dlg = new PsdFileTest(filePath);
-            dlg.Show();
-        }
-        */
-
-        // double click 이벤트( 파일검증으로 넘어갈 때 자동으로 검증하도록 넘기기 위한 메소드, 2020/04/20 민병호 )
+         * 2020/04/20 개별 검증( grid 더블 클릭 이벤트 )( 민병호 )
+         * double click 이벤트( 파일검증으로 넘어갈 때 자동으로 검증하도록 넘기기 위한 메소드 )
+         */
         void gridVerify_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             // 한개만 잡혔을 때로 한정
@@ -64,7 +50,10 @@ namespace ILS_TEST_V1
             dialog.Show(this);
         }
 
-
+        /*
+         * 폴더 선택
+         * 하위 모든 경로의 .psd 파일을 읽어와서 grid에 표출
+         */
         private void FileSearch()
         {
             // 폴더 선택 시 bindingList 생성 2020/05/07 민병호
@@ -87,22 +76,6 @@ namespace ILS_TEST_V1
 
             var selectPath = txtFolderPath.Text;
             var files = Directory.GetFiles(selectPath, "*.psd", SearchOption.AllDirectories);
-
-            /*
-            //DataGridView 열에 데이터 넣기(최정웅 박찬규)
-            #region PSD FILE LIST
-            gridVerify.ColumnCount = 6;
-            
-            gridVerify.Columns[0].Name = "Index";
-            gridVerify.Columns[1].Name = "FileName";
-            gridVerify.Columns[2].Name = "ILS_Type";
-            gridVerify.Columns[3].Name = "TotalCount";
-            gridVerify.Columns[4].Name = "Success";
-            gridVerify.Columns[5].Name = "Fail";
-
-            //gridVerify.Columns.Add("FileName", "FileName"); 
-            #endregion
-           */
 
             //DataGridView 행에 값 넣는 곳 (최정웅 , 박찬규)
             //순번 표기를 위한 Index 변수 추가(박찬규)
@@ -143,11 +116,12 @@ namespace ILS_TEST_V1
 
             //각 열의 데이터에 맞게 자동으로 사이즈 조절 기능 추가 (박찬규)
             gridVerify.AutoResizeColumns();
+            
         }
 
-
-        // 2020.02.26 민병호 ILSType 비교 로직 작성
         /*
+         * 2020.02.26 민병호 ILSType 비교 로직 작성
+         * ILSType 설정
          ****** 참고자료 ******
             ################### ILSType 정리 ####################
             일반교차로             NC                        KRCM
@@ -167,8 +141,6 @@ namespace ILS_TEST_V1
 
             var file_info = new FileInfo(file);
             var fileName = file_info.Name;
-            // fileName
-            // KRCM12B30266E0BE4C0802.PSD
             
             //비교 로직
             // startwith(String, StringComparison) : 비교할 문자열, 비교하는 방법 열거형(enum)
@@ -218,12 +190,15 @@ namespace ILS_TEST_V1
             return null;
         }
 
+        /*
+         * 멀티 검증버튼 클릭 이벤트
+         */
         private void btnVerify_Click(object sender, EventArgs e)
         {
             foreach (var row in gridVerify.Rows.OfType<DataGridViewRow>())
             {
+                // 개별 검증 폼 생성
                 var dlg = new PsdFileTest();
-                // row.Selected = true;
                 gridVerify.CurrentCell = row.Cells[0];
 
                 var x = row.DataBoundItem as ValidatePsdFileVM;
@@ -232,7 +207,6 @@ namespace ILS_TEST_V1
 
                 dlg.Setup(x);
                 dlg.ShowDialog();
-                //dlg.Show();
             }
             gridVerify.CurrentCell = null;
         }

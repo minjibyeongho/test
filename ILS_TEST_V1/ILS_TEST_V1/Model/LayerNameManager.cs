@@ -8,6 +8,7 @@ namespace ILS_TEST_V1.Model
 {
     public class LayerNameManager
     {
+        // 싱글턴 기법 활용
         private static LayerNameManager _instance = null;
         public static LayerNameManager Instance
         {

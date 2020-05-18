@@ -21,7 +21,7 @@ namespace ILS_TEST_V1.View
 {
     public partial class PsdFileTest : Form
     {
-        BindingList<IPsdLayer> layerAdd = new BindingList<IPsdLayer>(); //총 레이어를 담기위한 BindingList (2020.03.17 최정웅)
+        // BindingList<IPsdLayer> layerAdd = new BindingList<IPsdLayer>(); //총 레이어를 담기위한 BindingList (2020.03.17 최정웅)
         BindingList<layerModel> gridlist = new BindingList<layerModel>();   // 레이어의 정보를 담은 BindingList ( 2020.03.17 민병호 )
 
         // 원본 코드
@@ -114,7 +114,9 @@ namespace ILS_TEST_V1.View
         //tsslLog.Text = string.Format("{0:yyyy/MM/dd hh:mm:ss} {1}", DateTime.Now, msg);
         //}
 
-
+        /*
+         * 검증 버튼 클릭 이벤트
+         */ 
         private void btnVerify_Click(object sender, EventArgs e)
         {
             //ShowLog("Begin Validation");
@@ -159,11 +161,18 @@ namespace ILS_TEST_V1.View
             }
         }
 
+        /*
+         * ILSType 변경 시 발생 이벤트
+         */
         void rbtnLSType_CheckedChanged(object sender, EventArgs e)
         {
             RefreshValidCodeList();
         }
 
+        /*
+         * ILSType 변경 시 발생 이벤트( 종속적으로 연결 )
+         * 전체 오류 목록에서 해당하는 오류 목록만들 선별해온다( 예 : NC -> CM, NC 목록을 가져 옴 )
+         */
         void RefreshValidCodeList()
         {
             _validationMethods.DsValidCodeList.Clear();
@@ -181,6 +190,9 @@ namespace ILS_TEST_V1.View
 
                 Console.WriteLine("x.ILSType : {0}, x.CHECK : {1}, x.CODE : {2}", x.ILSType, x.CHECK, x.CODE);
 
+
+                // _fullValidCodeList는 오류 검증 목록 전체를 가지고 있는 List
+                // 여기서 ILSType이 포함되어 있으면 DsValidCodeList에 포함시켜준다( 예 : ETC는 12개 항목이 해당한다)
                 if (ilsTypeSet.Contains(x.ILSType))
                     _validationMethods.DsValidCodeList.Add(x);
             }
@@ -274,79 +286,18 @@ namespace ILS_TEST_V1.View
             filePath.Text = vm.FileName;
             _validatePsdFileVM = vm;
         }
-        /*
-        public void Setup(ValidatePsdFileVM vm, string folderPath, bool isFilterByArrow, bool isAutoClose = true, bool isExportLayerList = true)
-        {
-            this._isAutoClose = isAutoClose;
-            if (isExportLayerList)
-            {
-                this._isExportLayerList = isExportLayerList;
-                this._exportFilePath = folderPath;
-                this._isFilterByArrow = isFilterByArrow;
-            }
-
-            if (vm.ILS_Type == ILSType.Code1_NC)
-            {
-                rdoILSType1.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code2_JC)
-            {
-                rdoILSType2.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code3_CE)
-            {
-                rdoILSType3.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code4_ET)
-            {
-                rdoILSType4.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code5_MimeticDiagram)
-            {
-                rdoILSType5.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code6_CrossRoadPoint3D)
-            {
-                rdoILSType6.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code7_RestAreaSummaryMap_Mapy)
-            {
-                rdoILSType7.Checked = true;
-            }
-            if (vm.ILS_Type == ILSType.Code8_RestAreaSummaryMap_Gini)
-            {
-                rdoILSType8.Checked = true;
-            }
-
-            txtPsdFullPath.Text = vm.FileName;
-            _validatePsdFileVM = vm;
-        }
-        */
-
-        /*
-        // 파라미터 있는 생성자 생성 ( 2020.02.24 민병호 )
-        public PsdFileTest(string filepath)
-        {
-            InitializeComponent();
-            InitControls();
-            filePath.Text = filepath;
-
-            //그리드 마지막행 제거
-            dataGridView1.AllowUserToAddRows = false;
-            gridValidCode.AllowUserToAddRows = false;
-            dataGridView3.AllowUserToAddRows = false;
-        }
-        */
+      
 
         // dataGridView1 데이터그리드뷰 이름
 
         //child 레이어 list add, 재귀함수 ( 2020.03.17 최정웅)
         private void GetLayer(IPsdLayer layer, int layerDepth, int layerSeq)
         {
+            /*
             Console.WriteLine(layer);
             Console.WriteLine("index: {0}, layerDepth: {1}, layerSeq: {2}", _index, layerDepth, layerSeq);
             Console.WriteLine();
-
+            */
             // 새로운 VM 생성
             layerModel tmpVm = new layerModel();
 
@@ -354,7 +305,6 @@ namespace ILS_TEST_V1.View
             tmpVm.Index = ++_index;
             tmpVm.LayerDepth = layerDepth;
             tmpVm.LayerSeq = layerSeq;
-
 
             // 각 레이어의 속성 정보를 넣어줌
             tmpVm.Name = layer.Name;
@@ -373,7 +323,6 @@ namespace ILS_TEST_V1.View
             tmpVm.HasImage = layer.HasImage;
             tmpVm.HasMask = layer.HasMask;  //bool
             tmpVm.IsClippinig = layer.IsClipping;
-
 
             // Channel
             tmpVm.ChannelCount = layer.Channels.Count(); //channel Count 추가(2020.05.12)
@@ -409,17 +358,7 @@ namespace ILS_TEST_V1.View
             tmpVm.VerticalResUnit = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_VerticalResUnit);
             tmpVm.WidthUnit = GetDictionaryValue(descriptionList, DescriptionMode.Docuemnt_WidthUnit);
 
-            /*
-            layer.BlendMode;    //BlendMode
-            layer.Channels.; // [], iChannel
-            layer.LinkedLayer;  //????
-            layer.Parent;
-            layer.Resources;
-             */
-
             gridlist.Add(tmpVm);
-            // bindingList에 담는다.
-            //layerAdd.Add(layer);
 
             var childSeq = 1;
             foreach (var y in layer.Childs.Reverse()) //IPsdLayer는 첫번째 child가 최상위 폴더가 아닌 그하위 폴더 즉 ETC1 이런거가 나옴 그래서 최상위 폴더가 안나오는 것임.
@@ -428,8 +367,9 @@ namespace ILS_TEST_V1.View
             }
         }
 
-
-        // layer 카운트, parent layer카운트 및 레이어별 속성 list add 수정중임 (2020.03.17 최정웅)
+        /*
+         * 2020.03.17 layer 카운트, parent layer카운트 및 레이어별 속성 list add 수정중임 ( 최정웅)
+         */
         public void ReadFile(string filename)
         {
             gridlist.Clear();
@@ -489,8 +429,9 @@ namespace ILS_TEST_V1.View
             doc.Dispose();
         }
 
-
-        // FileTest에서 더블클릭시 파일 경로 읽어오면 Text변경 이벤트 발생 -> PSD파일 읽을 수 있도록 구현( 2020.02.24 민병호 ) 
+        /*
+         *  2020.02.24 FileTest에서 더블클릭시 파일 경로 읽어오면 Text변경 이벤트 발생 -> PSD파일 읽을 수 있도록 구현(  민병호 ) 
+         */
         private void filePath_TextChanged(object sender, EventArgs e)
         {
             var doc = PsdDocument.Create(filePath.Text);
@@ -511,18 +452,16 @@ namespace ILS_TEST_V1.View
             dataGridView1.DataSource = gridlist;
         }
 
-
-        //2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규)
+        /*
+         *  2020.02.27 파일 정보 텍스트 박스 입력 메서드 생성 (박찬규) 
+         */
         private void FileInformaion(string filePath)
         {
             var doc = PsdDocument.Create(filePath);
             var imageSource = doc.ImageResources;
             var properties = imageSource["Resolution"] as IEnumerable<KeyValuePair<string, object>>;
             // 속성을 뽑아오는 것까지는 성공! ( IEnumerable<KeyValuePair<string, object>> 되어 있는 데이터를 어떻게 뽑아서 가져올지가 필요 )
-            //var tlist = properties.ToList();
 
-            // 2020/03/18 pixel 정보 뽑아 오는 것 테스트 중( 민병호 )
-            // 현재 상황 : properties에 pixel정보 들어가 있음
             // 2020/04/08 Linq로 select 가능한지 확인( 코드 수를 줄일 수 있는 방안이 될 것.. )
             StringBuilder min_sb1 = new StringBuilder();
 
@@ -547,7 +486,6 @@ namespace ILS_TEST_V1.View
             FileInfo fileInfo = new FileInfo(filePath);
             _psdFile.Name = fileInfo.Name.Split('.')[0];
             _psdFile.Extension = fileInfo.Extension.Split('.')[1]; //Extension은 psd로 들어가야하나 .psd로 들어가 있어서 수정함
-            //_psdFile.Extension = fileInfo.Extension; 
 
             var imageSource11 = doc as IImageSource;
             var iproperties = imageSource11 as IProperties;
@@ -560,7 +498,6 @@ namespace ILS_TEST_V1.View
             string tmpChannelType = string.Join(" / ", tmp);
 
             BeginInvoke((MethodInvoker)(() => { FileChannelType.Text = tmpChannelType; }));
-            //FileChannelType.Text = tmpChannelType;
 
             // PsdFileSectionVM 요소 등록 ( 2020/04/23 민병호 )
             _psdFileSection.NumberOfChannels = doc.FileHeaderSection.NumberOfChannels;
@@ -572,40 +509,21 @@ namespace ILS_TEST_V1.View
             _psdFileSection.Pixel = min_sb1.ToString();
 
             BeginInvoke((MethodInvoker)(() => { FileDepth.Text = doc.Depth.ToString(); }));
-            //FileDepth.Text = doc.Depth.ToString();
-
 
             // TextBox에 요소 넣는 메소드( 2020/04/23 민병호 )
             setTxtBox(filePath, doc, min_sb1);
 
-            /*
-                요소 들어갔나 확인
-            _psdFile.ComponentPrint();
-            _psdFileSection.Componentprint();
-            */
-
-            /*
-            //2020.02.27 채널 개수에 따른 채널 타입 추출 (박찬규)
-            for (int i = 0; i < doc.FileHeaderSection.NumberOfChannels; i++)
-            {
-                if (TypeTemp != null)
-                {
-                    TypeTemp += "/";
-                }
-                TypeTemp1 = imageSource.Channels[i].Type.ToString();
-                TypeTemp += TypeTemp1;
-            }
-            FileChannelType.Text = TypeTemp;
-            */
-
             doc.Dispose();
         }
 
+        /*
+         * 2020.02.27  파일 정보 텍스트 박스 값 입력( 박찬규 )
+         */
         public void setTxtBox(string path, PsdDocument doc, StringBuilder sb)
         {
             BeginInvoke((MethodInvoker)(() =>
             {
-                //2020.02.27  파일 정보 텍스트 박스 값 입력
+                
                 FileNameBox.Text = Path.GetFileNameWithoutExtension(path);  //파일명 텍스트박스  2020.02.27 파일의 확장자를 제외한 파일명을 가져온다. (박찬규)            
                 FileExtensionName.Text = Path.GetExtension(path);  //파일 확장명 텍스트 박스 2020.02.27 파일의 확장자만 가져온다. (박찬규)
 
@@ -698,7 +616,10 @@ namespace ILS_TEST_V1.View
             propertyGrid1.SelectedObject = item;
         }
 
-        //2020.04.10 pcg  엑셀출력 이벤트 관련 내용
+        /*
+         * 2020.04.10 pcg  엑셀출력 이벤트 관련 내용( 박찬규 )
+         */
+        
         static Excel.Application excelApp = null;
         static Excel.Workbook workBook = null;
         static Excel.Worksheet workSheet = null;
@@ -859,7 +780,54 @@ namespace ILS_TEST_V1.View
             bw.RunWorkerAsync();
         }
 
+        /*
+          public void Setup(ValidatePsdFileVM vm, string folderPath, bool isFilterByArrow, bool isAutoClose = true, bool isExportLayerList = true)
+          {
+              this._isAutoClose = isAutoClose;
+              if (isExportLayerList)
+              {
+                  this._isExportLayerList = isExportLayerList;
+                  this._exportFilePath = folderPath;
+                  this._isFilterByArrow = isFilterByArrow;
+              }
 
+              if (vm.ILS_Type == ILSType.Code1_NC)
+              {
+                  rdoILSType1.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code2_JC)
+              {
+                  rdoILSType2.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code3_CE)
+              {
+                  rdoILSType3.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code4_ET)
+              {
+                  rdoILSType4.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code5_MimeticDiagram)
+              {
+                  rdoILSType5.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code6_CrossRoadPoint3D)
+              {
+                  rdoILSType6.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code7_RestAreaSummaryMap_Mapy)
+              {
+                  rdoILSType7.Checked = true;
+              }
+              if (vm.ILS_Type == ILSType.Code8_RestAreaSummaryMap_Gini)
+              {
+                  rdoILSType8.Checked = true;
+              }
+
+              txtPsdFullPath.Text = vm.FileName;
+              _validatePsdFileVM = vm;
+          }
+          */
 
     }
 }

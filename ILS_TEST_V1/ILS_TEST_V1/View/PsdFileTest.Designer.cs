@@ -410,6 +410,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox5.Controls.Add(this.rbtn8);
             this.groupBox5.Controls.Add(this.rbtn7);
             this.groupBox5.Controls.Add(this.rbtn6);

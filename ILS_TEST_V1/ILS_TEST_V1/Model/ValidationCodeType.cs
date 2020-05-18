@@ -78,6 +78,7 @@ namespace ILS_TEST_V1.Model
 
         [Description("ET : ET : 레이어/레이어셋 총 개수 확인")]
         M_ET_WD_LS_0009,
+
         [Description("ET : 최상위 레이어셋 구조")]
         M_ET_WD_LS_0010,
 
@@ -183,26 +184,14 @@ namespace ILS_TEST_V1.Model
         [Description("이미지+일반교차로 : 일반교차로 Arrow 레이어셋 하위 그룹명 Arrow_KRCA*** 길이는 28")]
         MP_NC_WD_AC_0001,
 
-
-
-
-
-
         [Description("레이어/레이어셋 총 개수 확인, 19, 24, 28, 4개씩 증가")]
         M_NC_WD_LS_0010,
-
-
-
 
         [Description("최상위 레이어셋 구조 : 6개 (Arrow, …, Night_on_Sky)")]
         M_NC_WD_LS_0011,
 
-
-
         [Description("최상위 레이어셋 중 Arrow가 있는가?")]
         M_NC_WD_LS_0012,
-
-
 
         [Description("레이어구조 A Type : 고정부분")]
         M_NC_WD_LS_0001,

@@ -66,12 +66,22 @@ namespace ILS_TEST_V1.Helper
             }
         }
 
+        /*
+         * VaildationMethod run
+         * psdFile : 파일명, 확장자(fileName, extension)
+         * ilsType : NC, CE, JC, ET 등
+         * psdFileSection : Channel Type, Color Mode, Pixel등 파일 관련 VO
+         * 
+         */
         public void Run(string ilsType, PsdFileVM psdFile, PsdFileSectionVM psdFileSection)
         {
             this._ILSType = ilsType;
             this._psdFileVM = psdFile;
             this._psdFileSectionVM = psdFileSection;
+            // DSPsdLayerVMList에 추출한 모든 레이어 정보를 가지고 있음( 2020/05/18 민병호 )
             var isFirst = DSPsdLayerVMList.FirstOrDefault();
+
+            // DsValidCodeList : ILSType에 따른 전체목록중 해당 목록(예 : NC -> NC,CM(Common, 공통) ) 
 
             foreach (var item in DsValidCodeList)
             {
@@ -949,6 +959,7 @@ namespace ILS_TEST_V1.Helper
             //}
             #endregion
         }
+
         private void M_ET_WD_FM_0006(ValidateVM item)
         {
             #region ET : PSD Mode (이미지 > Image Size > Width 2048 / Height 2048 )
@@ -1062,7 +1073,6 @@ namespace ILS_TEST_V1.Helper
             #endregion
         }
 
-
         private void M_ET_WD_AC_0004(ValidateVM item)
         {
             #region ETC그룹내 그룹명 글자갯수 $5
@@ -1086,7 +1096,6 @@ namespace ILS_TEST_V1.Helper
             }
             #endregion
         }
-
 
         private void MP_ET_WD_LS_0001(ValidateVM item)
         {
@@ -1222,10 +1231,11 @@ namespace ILS_TEST_V1.Helper
             }
             #endregion 레이어의 Show/Hide 확인
         }
+
         private void M_ET_WD_LS_0009(ValidateVM item)
         {
             #region 레이어 총개수
-
+            
             var etcLayerName = LayerIndex.GetName<LayerIndex.ET>(LayerIndex.ET.L19_ETC_);
             var layerCount = DSPsdLayerVMList.Count;
 
@@ -1271,6 +1281,7 @@ namespace ILS_TEST_V1.Helper
             }
             #endregion
         }
+
         private void M_ET_WD_LS_0011(ValidateVM item)
         {
             #region CE : 가장 마지막 레이어셋은 Arrow
@@ -2189,6 +2200,7 @@ namespace ILS_TEST_V1.Helper
         {
             #region 공통 : 레이어그룹(레이어셋)의 명칭들이 중복되면 안된다
 
+            // Linq 이해 필요
             var grouping = from x in DSPsdLayerVMList
                            where x.ChildCount != 0
                            group x by x.Name into g
@@ -2340,7 +2352,7 @@ namespace ILS_TEST_V1.Helper
 
             #endregion 공통 : 각 레이어 별로 Lock이 걸려있는지 확인 (이미지 레이어만 해당됨)
         }
-
+        // /??
         private void MP_CM_WD_LS_0007(ValidateVM item)
         {
             #region 그룹명/레이어명 공란 무조건 없어야 한다.
@@ -2429,7 +2441,7 @@ namespace ILS_TEST_V1.Helper
                     var z = list.SingleOrDefault(y => y.Index == x.Index);
                     if (z == null)
                     {
-                        AddErrorMsg(item, string.Format("기준 레이어(NormalCross) 검색 실패: 순번 {0}, 이름 {1}, {2} != {3}", x.Index, x.Name));
+                        AddErrorMsg(item, string.Format("기준 레이어(NormalCross) 검색 실패: 순번 {0}, 이름 {1}", x.Index, x.Name)); //, {2} != {3}
                     }
                     else if (x.IsVisible != z.IsShow)
                     {
@@ -2495,8 +2507,11 @@ namespace ILS_TEST_V1.Helper
         {
             #region 레이어 총개수
 
+            // 레이어 총 개수 변경( 레이어 구조 변경에 따른 수정 필요 2020/05/18 민병호 )
+
             var layerCount = DSPsdLayerVMList.Count;
             var arrowKRCACount = DSPsdLayerVMList.Where(x => x.Name.StartsWith("Arrow_KRCA") && x.LayerDepth == 2 && x.HasImage == false).Count();
+            // arrow 포함된 레이어 수 4개( arrow_krca*, direction, transparency, arrow )
             var totalLayerCount = LayerIndex.NC.Road_Background_Color + 4 * arrowKRCACount + 1;
             if (layerCount != totalLayerCount)
             {
@@ -2568,7 +2583,7 @@ namespace ILS_TEST_V1.Helper
                     var z = list.SingleOrDefault(y => y.Index == x.Index);
                     if (z == null)
                     {
-                        AddErrorMsg(item, string.Format("기준 레이어(NormalCross) 검색 실패: 순번 {0}, 이름 {1}, {2} != {3}", x.Index, x.Name));
+                        AddErrorMsg(item, string.Format("기준 레이어(NormalCross) 검색 실패: 순번 {0}, 이름 {1}", x.Index, x.Name)); //, {2} != {3}
                     }
                     else if (x.IsVisible != z.IsShow)
                     {
